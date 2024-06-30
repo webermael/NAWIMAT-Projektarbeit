@@ -26,3 +26,10 @@
 - Darstellung der Welt
 - Darstellung der Organismen
 - Inputmöglichkeiten von Benutzer
+
+
+## Installation
+-> `docs/installation.md`
+
+## Usage
+-> `docs/usage.md`
