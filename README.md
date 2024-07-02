@@ -15,10 +15,11 @@
     - Einzelne Methoden für jeweilige Sensoren
     - Attribute:
         - Lebendig / Tot (mehrere "Leben?")
+        - Gesundheit (sinkt stetig bis zum Tod)
         - weitere?
 
 #### Neuronales Netz
-- Eigenständige Klasse oder als Teil des Orgnismus
+- Eigenständige Klasse oder als Teil des Organismus
 - Wandelt Inputs von Sensoren in Outputs in Form von Bewegung um
 
 
