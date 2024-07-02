@@ -1,7 +1,12 @@
+class Position:
+    def __init__(self, x = 0, y = 0):
+        self.x = x
+        self.y = y
+
 class Tile:
-    def __init__(self, config, row, column):
+    def __init__(self, config, x_pos, y_pos):
         self.width = config.tile_width
         self.height = config.tile_height
-        self.position = (row, column)
+        self.position = Position(x_pos, y_pos)
         #self.content = ...
 
