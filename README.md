@@ -15,11 +15,14 @@
     - Einzelne Methoden für jeweilige Sensoren
     - Attribute:
         - Lebendig / Tot (mehrere "Leben?")
-        - Gesundheit (sinkt stetig bis zum Tod)
+        - Vitalität (sinkt stetig (Hunger), steigt wenn gegessen wird)
+        - Lebensdauer (sinkt stetig, sinkt schneller wenn Vitalität tief)
         - weitere?
 
 #### Fortpflanzung
 - Wenn zwei Organismen auf angrenzenden Feldern stehen, gibt es eine Wahrscheinlichkeit, dass sie sich "fortpflanzen", sich also ein weiterer Organismus aus ihren Genen etwickelt.
+
+
 
 #### Neuronales Netz
 - Eigenständige Klasse oder als Teil des Organismus
