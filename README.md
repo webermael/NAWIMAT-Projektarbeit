@@ -18,6 +18,9 @@
         - Gesundheit (sinkt stetig bis zum Tod)
         - weitere?
 
+#### Fortpflanzung
+- Wenn zwei Organismen auf angrenzenden Feldern stehen, gibt es eine Wahrscheinlichkeit, dass sie sich "fortpflanzen", sich also ein weiterer Organismus aus ihren Genen etwickelt.
+
 #### Neuronales Netz
 - Eigenständige Klasse oder als Teil des Organismus
 - Wandelt Inputs von Sensoren in Outputs in Form von Bewegung um
