@@ -1,16 +1,15 @@
-import pygame
+#import pygame
 from config import Config
 from world.world import World
-#from src.organisms.organism import Organism
-#from src.world.tiles import Tile
-#from src.evolution.reproduction import reproduce
-#from src.evolution.mutation import mutate
+#from organisms.organism import Organism
+#from evolution.reproduction import reproduce
+#from evolution.mutation import mutate
 
 def main():
     #pygame.init()
     config = Config()
     world = World(config)
-    print(world.grid)
+    print(world.grid[0][5].position)
     #organisms = [Organism(config) for _ in range(config.num_organisms)]
     
     #while True:
