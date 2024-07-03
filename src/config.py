@@ -6,3 +6,6 @@ class Config:
 
         self.tile_width = 4
         self.tile_height = 4
+
+        self.organism_lifetime = 80
+        self.organism_vitality = 100
