@@ -36,7 +36,7 @@
 
 
 ## Installation
-Siehe [docs/installation.md](docs/installation.md)
+-> [docs/installation.md](docs/installation.md)
 
 ## Usage
-Siehe [docs/usage.md](docs/usage.md)
+-> [docs/usage.md](docs/usage.md)
