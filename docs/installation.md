@@ -24,7 +24,7 @@ souce venv/bin/activate
 Windows:
 ```sh
 python -m venv venv
-souce venv\Scripts\activate
+source venv\Scripts\activate
 ```
 
 3. Install the required dependencies:
