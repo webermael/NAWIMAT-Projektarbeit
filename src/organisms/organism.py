@@ -6,7 +6,7 @@ from random import randint
 class Organism:
     def __init__(self, config, x_pos, y_pos):
         self.position = Position(x_pos, y_pos)
-        self.vitality = config.organism_vitality # current state of wellbeing, used to reduce lifetime more/less
+        self.vitality = randint(config.organism_min_vit, config.organism_max_vit) # current state of wellbeing, used to reduce lifetime more/less, randomized at the beginning
         self.lifetime = randint(config.organism_min_life, config.organism_max_life) # how long the organism will live, randomized
         self.alive = True
         #self.nn = NeuralNetwork(config)

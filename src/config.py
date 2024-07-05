@@ -9,4 +9,5 @@ class Config:
 
         self.organism_min_life = 60
         self.organism_max_life = 100
-        self.organism_vitality = 100
+        self.organism_min_vit = 80
+        self.organism_max_vit = 100
