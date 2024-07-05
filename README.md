@@ -36,7 +36,7 @@
 
 
 ## Installation
--> `docs/installation.md`
+-> [docs/installation.md](docs/installation.md)
 
 ## Usage
--> `docs/usage.md`
+-> [docs/usage.md](docs/usage.md)
