@@ -10,7 +10,7 @@ def main():
     pygame.init()
     config = Config()
     world = World(config)
-    #organisms = [Organism(config) for _ in range(config.num_organisms)]
+    #organisms = [Organism(config) for i in range(config.population_size)]
     screen = screen_init(config)
     running = True
 
