@@ -2,6 +2,7 @@
 #from src.organisms.neural_network import NeuralNetwork
 from world.tile import Position
 from random import randint
+import pygame
 
 class Organism:
     def __init__(self, config, x_pos, y_pos):
@@ -20,6 +21,9 @@ class Organism:
         if self.lifetime <= 0:
             self.alive = False
     
+    def draw(self, config, display):
+        pygame.draw.circle(display, (255, 0, 0), (self.position.x * config.tile_width, self.position.y * config.tile_width), config.tile_width / 2)
+
     def checktile(self, world):
         tile_type = world[self.position.y][self.position.x].type
         if tile_type == "empty":
