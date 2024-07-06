@@ -7,6 +7,8 @@ class Config:
         self.tile_width = 5
         self.tile_height = 5
 
+        self.population_size = 50
+
         self.organism_min_life = 60
         self.organism_max_life = 100
         self.organism_min_vit = 80
