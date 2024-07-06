@@ -1,11 +1,11 @@
 class Config:
     def __init__(self): 
         # World
-        self.row_length = 16
-        self.column_length = 16
+        self.row_length = 100
+        self.column_length = 100
 
-        self.tile_width = 4
-        self.tile_height = 4
+        self.tile_width = 5
+        self.tile_height = 5
 
         self.organism_min_life = 60
         self.organism_max_life = 100
