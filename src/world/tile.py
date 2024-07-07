@@ -8,5 +8,5 @@ class Tile:
         self.width = config.tile_width
         self.height = config.tile_height
         self.position = Position(x_pos, y_pos)
-        #self.content = ...
+        self.content = "empty"
 
