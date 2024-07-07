@@ -25,8 +25,6 @@ def main():
         # drawing everything
 
         screen_update()
-        #render_world(world)
-        #break
 
 if __name__ == "__main__":
     main()
