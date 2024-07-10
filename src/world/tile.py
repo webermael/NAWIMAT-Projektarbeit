@@ -4,9 +4,9 @@ class Position:
         self.y = y
 
 class Tile:
-    def __init__(self, config, x_pos, y_pos):
+    def __init__(self, config, x_pos, y_pos, content):
         self.width = config.tile_width
         self.height = config.tile_height
         self.position = Position(x_pos, y_pos)
-        #self.content = ...
+        self.content = content
 
