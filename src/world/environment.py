@@ -1,10 +1,14 @@
-from world.tile import Tile
+from tile import Tile
 
-class Berries(Tile):
-  def __init__(self):
-    self.content = "berries"
+class Food(Tile):
+  def __init__(self, config, x_pos, y_pos):
+    Tile.__init__(self, config, x_pos, y_pos, "food")
 
-class Fire(Tile):
-  def __init__(self):
-    self.content = "fire"
+class Danger(Tile):
+  def __init__(self, config, x_pos, y_pos):
+    Tile.__init__(self, config, x_pos, y_pos, "danger")
+
+class Empty(Tile):
+  def __init__(self, config, x_pos, y_pos):
+    Tile.__init__(self, config, x_pos, y_pos, "empty")
     
