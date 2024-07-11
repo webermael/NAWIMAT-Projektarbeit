@@ -22,7 +22,7 @@ class Organism:
             self.alive = False
     
     def draw(self, config, display):
-        pygame.draw.circle(display, (255, 0, 0), (self.position.x * config.tile_width, self.position.y * config.tile_width), config.tile_width / 2)
+        pygame.draw.circle(display, (0, 0, 0), (config.tile_width * (self.position.x + 1 / 2) , config.tile_width * (self.position.y + 1/ 2)), config.tile_width / 2)
 
     def checktile(self, world):
         tile_type = world[self.position.y][self.position.x].type
