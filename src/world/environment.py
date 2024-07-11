@@ -9,6 +9,10 @@ class Food(Tile):
 class Danger(Tile):
   def __init__(self, config, x_pos, y_pos):
     Tile.__init__(self, config, x_pos, y_pos, "danger")
+
+  def draw(self, config, display):
+    pygame.draw.rect(display, (255, 0, 0), (self.position.x * config.tile_width, self.position.y * config.tile_width, config.tile_width, config.tile_width))
+  
   
   def spread(self, world, config):
     for i in range(self.position.y - 1, self.position.y + 2):
