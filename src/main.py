@@ -20,6 +20,8 @@ def main():
                 running = False
         screen.fill((255, 255, 255))
 
+        world.draw(config, screen)
+        world.spread(config)
         population.draw(config, screen)
 
         # drawing everything
