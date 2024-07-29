@@ -11,3 +11,7 @@ class NeuralNetwork:
         for layer in self.layers:
             inputs = layer.calc_output(inputs)
         return inputs
+
+    def calc_greatest(self, inputs):
+        values = self.calc_output(inputs)
+        return values.index(max(values))
