@@ -9,4 +9,7 @@ class Tile:
         self.height = config.tile_height
         self.position = Position(x_pos, y_pos)
         self.content = content
+    
+    def draw(self, config, display):
+        pass
 
