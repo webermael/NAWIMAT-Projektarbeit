@@ -7,8 +7,8 @@ class Layer:
         self.biases = [0 for node in range(size)] # bias for every node in the layer
     
 
-    def ActivationFunction(x):
-        return 1 / (1 + (math.e ** x))
+    def activationFunction(x): # used on the output of every node to have a cleaner transition between high and low values and keep outputs small 
+        return 1 / (1 + (math.e ** x)) # always returns a number between 0 and 1, giving a bigger increase/decrease in value less influence 
     
 
     def calc_output(self, inputs):
@@ -19,6 +19,6 @@ class Layer:
             for input in range(self.nodes_in):
                 output += self.weights[node][input] * inputs[input] # multiplies value of each ingoing node with its weight, repeated for each node in the previous layer
 
-            outputs.append(self.ActivationFunction(output))
+            outputs.append(self.activationFunction(output))
         
         return outputs	
