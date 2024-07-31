@@ -21,12 +21,13 @@ def main():
         screen.fill((255, 255, 255))
 
         world.draw(config, screen)
-        world.spread(config)
+        # world.spread(config)
         population.draw(config, screen)
-
+        population.move(config)
         # drawing everything
 
         screen_update()
+        pygame.time.Clock().tick(60)
 
 if __name__ == "__main__":
     main()
