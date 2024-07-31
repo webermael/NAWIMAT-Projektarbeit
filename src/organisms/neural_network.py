@@ -1,4 +1,4 @@
-from layer import Layer
+from organisms.layer import Layer
 
 
 class NeuralNetwork:
