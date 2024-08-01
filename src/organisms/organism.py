@@ -10,7 +10,7 @@ class Organism:
         self.vitality = randint(config.organism_min_vit, config.organism_max_vit) # current state of wellbeing, used to reduce lifetime more/less, randomized at the beginning
         self.lifetime = randint(config.organism_min_life, config.organism_max_life) # how long the organism will live, randomized
         self.alive = True
-        self.nn = NeuralNetwork((1, 3, 8)) # uses 8 outputs, the highest value output will determine the direction chosen from self.actions
+        self.nn = NeuralNetwork((1, 3, 9)) # uses 9 outputs, the highest value output will determine the direction chosen from self.actions
         self.actions = [(-1, -1),
                         (0, -1),
                         (1, -1),
