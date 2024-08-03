@@ -9,11 +9,12 @@ class Population:
         for organism in self.organisms:
             organism.draw(config, display)
     
-    def move(self):
-        for organism in self.organism:
-            # calculate best move 
-            direction = (0, 0) # set diretion to best move
-            organism.move(direction)
+    def update(self, config):
+        for organism in self.organisms:
+            organism.update(config)
+            if not organism.alive:
+                self.organisms.remove(organism)
+    
 
     def update_lifetime(self):
         for organism in self.organisms:
