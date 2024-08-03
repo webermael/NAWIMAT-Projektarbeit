@@ -9,9 +9,12 @@ class Population:
         for organism in self.organisms:
             organism.draw(config, display)
     
-    def move(self, config):
+    def update(self, config):
         for organism in self.organisms:
-            organism.action(config)
+            organism.update(config)
+            if not organism.alive:
+                self.organisms.remove(organism)
+    
 
     def update_lifetime(self):
         for organism in self.organisms:
