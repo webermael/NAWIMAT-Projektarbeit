@@ -10,8 +10,11 @@ class Organism:
         self.vitality = randint(config.organism_min_vit, config.organism_max_vit) # current state of wellbeing, used to reduce lifetime more/less, randomized at the beginning
         self.lifetime = randint(config.organism_min_life, config.organism_max_life) # how long the organism will live, randomized
         self.alive = True
-        self.nn = NeuralNetwork((1, 3, 9)) # uses 9 outputs, the highest value output will determine the direction chosen from self.actions
-        self.actions = [(-1, -1),
+        self.nn = NeuralNetwork((1, 3, 9)) 
+        # Inputs will later be determined by the tiles the organism "sees" through the sensors class
+        # Hidden Layers will be randomized or set the same for every organism at the beginning and later changed through mutations
+        # One output for every action an organism can do, at the moment it's moving to any adjacent tile including the current one
+        self.directions = [(-1, -1),
                         (0, -1),
                         (1, -1),
                         (-1, 0),
@@ -40,8 +43,9 @@ class Organism:
         if self.lifetime <= 0:
             self.alive = False
     
-    def action(self, config):
-        self.move(self.actions[self.nn.calc_greatest([randint(0, 10)])], config)
+    def update(self, config):
+        self.move(self.directions[self.nn.calc_greatest([randint(0, 10)])], config)
+        # self.update_lifetime()
 
 
     def draw(self, config, display):
