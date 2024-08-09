@@ -21,7 +21,7 @@ def main():
         screen.fill((255, 255, 255))
 
         world.draw(config, screen)
-        # world.spread(config)
+        world.spread(config)
         population.draw(config, screen)
         population.update(config)
         # drawing everything
