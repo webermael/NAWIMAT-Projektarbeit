@@ -28,12 +28,12 @@ class Organism:
         self.position.x += direction[0]
         self.position.y += direction[1]
 
-        if self.position.x > config.row_length - 1: # stop organsims from exiting the screen from left/rigth
+        if self.position.x >= config.row_length: # stop organsims from exiting the screen from left/rigth
             self.position.x = config.row_length - 1
         elif self.position.x < 0:
             self.position.x = 0
         
-        if self.position.y > config.column_length - 1: # stop organsims from exiting the screen from top/bottom
+        if self.position.y >= config.column_length: # stop organsims from exiting the screen from top/bottom
             self.position.y = config.column_length - 1
         elif self.position.y < 0:
             self.position.y = 0
@@ -43,8 +43,10 @@ class Organism:
         if self.lifetime <= 0:
             self.alive = False
     
-    def update(self, config):
+    def update(self, config, grid):
+        grid[self.position.y][self.position.x].has_organism = False
         self.move(self.directions[self.nn.calc_greatest([randint(0, 10)])], config)
+        grid[self.position.y][self.position.x].has_organism = True
         # self.update_lifetime()
 
 
