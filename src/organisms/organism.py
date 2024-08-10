@@ -11,7 +11,7 @@ class Organism:
         self.lifetime = randint(config.organism_min_life, config.organism_max_life) # how long the organism will live, randomized
         self.alive = True
         self.eyes = Eyes(2)
-        self.nn = NeuralNetwork(((self.eyes.size * 2 + 1) ** 2, 9)) 
+        self.nn = NeuralNetwork(((self.eyes.size * 2 + 1) ** 2, 5, 9)) 
         # Inputs will later be determined by the tiles the organism "sees" through the sensors class
         # Hidden Layers will be randomized or set the same for every organism at the beginning and later changed through mutations
         # One output for every action an organism can do, at the moment it's moving to any adjacent tile including the current one
