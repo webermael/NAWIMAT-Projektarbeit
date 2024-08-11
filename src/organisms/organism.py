@@ -26,11 +26,10 @@ class Organism:
         pygame.draw.circle(display, (255, 0, 0), (self.position.x * config.tile_width, self.position.y * config.tile_width), config.tile_width / 2)
 
     def vision(self, world):
-         view = [World.grid[self.position.y - 2][self.position.x - i for i in range ( -2, 3)].content, 
-            World.grid[self.position.y - 1][self.position.x - i for i in range ( -2, 3)].content, 
-            World.grid[self.position.y][self.position.x - i for i in range ( -2, 3)].content,
-            World.grid[self.position.y + 1][self.position.x - i for i in range ( -2, 3)].content,
-            World.grid[self.position.y + 2][self.position.x - i for i in range ( -2, 3)].content]
+        view = []
+        for row in range(-2, 3):
+            for column in range(-2, 3):
+                view.append(world.grid[self.position.y + row][self.position.x + column].content)
         return view
     
         
