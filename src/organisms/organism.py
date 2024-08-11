@@ -1,6 +1,7 @@
 from organisms.sensors import Eyes
 from organisms.neural_network import NeuralNetwork
 from world.tile import Position
+from world.environment import Food, Danger, Empty
 from random import randint
 import pygame
 
@@ -53,4 +54,3 @@ class Organism:
 
     def draw(self, config, display):
         pygame.draw.circle(display, (0, 0, 0), (config.tile_width * (self.position.x + 1 / 2) , config.tile_width * (self.position.y + 1/ 2)), config.tile_width / 2)
-
