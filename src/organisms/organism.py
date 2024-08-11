@@ -25,7 +25,7 @@ class Organism:
     def draw(self, config, display):
         pygame.draw.circle(display, (255, 0, 0), (self.position.x * config.tile_width, self.position.y * config.tile_width), config.tile_width / 2)
 
-    def vision(self):
+    def vision(self, world):
          view = [World.grid[self.position.y - 2][self.position.x - i for i in range ( -2, 3)].content, 
             World.grid[self.position.y - 1][self.position.x - i for i in range ( -2, 3)].content, 
             World.grid[self.position.y][self.position.x - i for i in range ( -2, 3)].content,
