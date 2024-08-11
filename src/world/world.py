@@ -10,14 +10,14 @@ class World:
 
         # testing, change later
         i = 0
-        while i < 15:
+        while i < config.danger_tiles:
             y = randint(0, config.column_length - 1)
             x = randint(0, config.row_length - 1)
             if self.grid[y][x].content == "empty":
                 self.grid[y][x] = Danger(config, x, y)
                 i += 1
         i = 0
-        while i < 30:
+        while i < config.food_tiles:
             y = randint(0, config.column_length - 1)
             x = randint(0, config.row_length - 1)
             if self.grid[y][x].content == "empty":

@@ -1,4 +1,4 @@
-#from src.organisms.sensors import Sensor
+from organisms.sensors import Eyes
 from organisms.neural_network import NeuralNetwork
 from world.tile import Position
 from world.environment import Food, Danger, Empty
@@ -11,7 +11,8 @@ class Organism:
         self.vitality = randint(config.organism_min_vit, config.organism_max_vit) # current state of wellbeing, used to reduce lifetime more/less, randomized at the beginning
         self.lifetime = randint(config.organism_min_life, config.organism_max_life) # how long the organism will live, randomized
         self.alive = True
-        self.nn = NeuralNetwork((1, 3, 9)) 
+        self.eyes = Eyes(2)
+        self.nn = NeuralNetwork(((self.eyes.size * 2 + 1) ** 2, 5, 9)) 
         # Inputs will later be determined by the tiles the organism "sees" through the sensors class
         # Hidden Layers will be randomized or set the same for every organism at the beginning and later changed through mutations
         # One output for every action an organism can do, at the moment it's moving to any adjacent tile including the current one
@@ -46,21 +47,10 @@ class Organism:
     
     def update(self, config, grid):
         grid[self.position.y][self.position.x].has_organism = False
-        self.move(self.directions[self.nn.calc_greatest([randint(0, 10)])], config)
+        self.move(self.directions[self.nn.calc_greatest(self.eyes.sight(config, grid, self.position.x, self.position.y))], config)
         grid[self.position.y][self.position.x].has_organism = True
         # self.update_lifetime()
 
 
     def draw(self, config, display):
         pygame.draw.circle(display, (0, 0, 0), (config.tile_width * (self.position.x + 1 / 2) , config.tile_width * (self.position.y + 1/ 2)), config.tile_width / 2)
-
-    def vision(self, world):
-        view = []
-        for row in range(-2, 3):
-            for column in range(-2, 3):
-                view.append(world.grid[self.position.y + row][self.position.x + column].content)
-        return view
-    
-        
-                
-        
