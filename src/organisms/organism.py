@@ -1,6 +1,7 @@
 #from src.organisms.sensors import Sensor
 from organisms.neural_network import NeuralNetwork
 from world.tile import Position
+from world.environment import Food, Danger, Empty
 from random import randint
 import pygame
 
@@ -51,11 +52,13 @@ class Organism:
     def draw(self, config, display):
         pygame.draw.circle(display, (0, 0, 0), (config.tile_width * (self.position.x + 1 / 2) , config.tile_width * (self.position.y + 1/ 2)), config.tile_width / 2)
 
-    def checktile(self, world):
-        tile_type = world[self.position.y][self.position.x].type
-        if tile_type == "empty":
-            ...
-        elif tile_type == "food":
-            ...
-        elif tile_type == "danger":
-            ...
+    def vision(self, world):
+        view = []
+        for row in range(-2, 3):
+            for column in range(-2, 3):
+                view.append(world.grid[self.position.y + row][self.position.x + column].content)
+        return view
+    
+        
+                
+        
