@@ -23,7 +23,7 @@ def main():
         world.draw(config, screen)
         world.spread(config)
         population.draw(config, screen)
-        population.update(config)
+        population.update(config, world.grid)
         # drawing everything
 
         screen_update()
