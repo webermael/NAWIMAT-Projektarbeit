@@ -8,7 +8,7 @@ class Config:
         self.tile_height = 5
 
         self.danger_tiles = 20
-        self.food_tiles = 100
+        self.food_tiles = 900
 
         self.danger_min_life = 15
         self.danger_max_life = 15
@@ -18,7 +18,7 @@ class Config:
         self.food_max_spread = 100
         self.food_spread_chance = 5 # final chance wile be 1 / spread_chance
 
-        self.population_size = 100
+        self.population_size = 1000
 
         self.organism_min_life = 60
         self.organism_max_life = 100
