@@ -13,4 +13,7 @@ class Tile:
     
     def draw(self, config, display):
         pass
+    
+    def spread(self, world, config):
+        pass
 
