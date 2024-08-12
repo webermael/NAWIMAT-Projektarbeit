@@ -26,6 +26,9 @@ class Organism:
                         (0, 1),
                         (1, 1)] # used as inputs for the move function, one element for moving to one of the adjacent tiles
 
+    def eat(self, config, grid):
+        grid[self.position.y][self.position.x] = Empty(config, self.position.x, self.position.y)
+
     def move(self, direction, config):
         self.position.x += direction[0]
         self.position.y += direction[1]
