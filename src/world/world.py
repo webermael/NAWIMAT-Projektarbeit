@@ -33,5 +33,4 @@ class World:
     def spread(self, config):
         for column in self.grid:
             for tile in column:
-                if tile.content == "danger":
-                    tile.spread(self.grid, config)
+                tile.spread(self.grid, config)
