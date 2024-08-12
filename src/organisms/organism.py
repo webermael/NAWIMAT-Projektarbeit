@@ -52,6 +52,8 @@ class Organism:
         grid[self.position.y][self.position.x].has_organism = False
         self.move(self.directions[self.nn.calc_greatest(self.eyes.sight(config, grid, self.position.x, self.position.y))], config)
         grid[self.position.y][self.position.x].has_organism = True
+        if grid[self.position.y][self.position.x].content == "food":
+            self.eat(config, grid)
         # self.update_lifetime()
 
 
