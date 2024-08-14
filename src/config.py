@@ -18,7 +18,7 @@ class Config:
         self.food_max_spread = 100
         self.food_spread_chance = 5 # final chance wile be 1 / spread_chance
 
-        self.population_size = 1000
+        self.population_size = 500
 
         self.organism_min_life = 60
         self.organism_max_life = 100

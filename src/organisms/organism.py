@@ -26,34 +26,26 @@ class Organism:
                         (0, 1),
                         (1, 1)] # used as inputs for the move function, one element for moving to one of the adjacent tiles
 
-    def eat(self, config, grid):
-        grid[self.position.y][self.position.x] = Empty(config, self.position.x, self.position.y)
+    def eat(self, config, world):
+        world[self.position.y][self.position.x] = Empty(config, self.position.x, self.position.y)
 
-    def move(self, direction, config):
-        self.position.x += direction[0]
-        self.position.y += direction[1]
-
-        if self.position.x >= config.row_length: # stop organsims from exiting the screen from left/rigth
-            self.position.x = config.row_length - 1
-        elif self.position.x < 0:
-            self.position.x = 0
-        
-        if self.position.y >= config.column_length: # stop organsims from exiting the screen from top/bottom
-            self.position.y = config.column_length - 1
-        elif self.position.y < 0:
-            self.position.y = 0
+    def move(self, config, direction, world):
+        if 0 <= self.position.x + direction[0] < config.row_length and 0 <= self.position.y + direction[1] < config.column_length:
+            if not world[self.position.y + direction[1]][self.position.x + direction[0]].has_organism:
+                self.position.x += direction[0]
+                self.position.y += direction[1]
 
     def update_lifetime(self):
         self.lifetime -= 100 / self.vitality
         if self.lifetime <= 0:
             self.alive = False
     
-    def update(self, config, grid):
-        grid[self.position.y][self.position.x].has_organism = False
-        self.move(self.directions[self.nn.calc_greatest(self.eyes.sight(config, grid, self.position.x, self.position.y))], config)
-        grid[self.position.y][self.position.x].has_organism = True
-        if grid[self.position.y][self.position.x].content == "food":
-            self.eat(config, grid)
+    def update(self, config, world):
+        world[self.position.y][self.position.x].has_organism = False
+        self.move(config, self.directions[self.nn.calc_greatest(self.eyes.sight(config, world, self.position.x, self.position.y))], world)
+        world[self.position.y][self.position.x].has_organism = True
+        if world[self.position.y][self.position.x].content == "food":
+            self.eat(config, world)
         # self.update_lifetime()
 
 

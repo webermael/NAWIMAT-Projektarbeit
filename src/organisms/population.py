@@ -3,7 +3,13 @@ from random import randint
 
 class Population:
     def __init__(self, config):
-        self.organisms = [Organism(config, randint(0, config.row_length - 1), randint(0, config.column_length - 1)) for i in range(config.population_size)]
+        self.organisms = []
+        self.organism_coords = []
+        while len(self.organisms) < config.population_size:
+            coords = (randint(0, config.row_length - 1), randint(0, config.column_length - 1))
+            if coords not in self.organism_coords:
+                self.organisms.append(Organism(config, coords[0], coords[1]))
+                self.organism_coords.append(coords)
     
     def draw(self, config, display):
         for organism in self.organisms:
