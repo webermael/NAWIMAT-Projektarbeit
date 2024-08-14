@@ -8,6 +8,7 @@ from utils.visualisation import (render_world, screen_init, screen_update)
 class Simulation():
     def __init__(self):
         self.config = Config()
+        self.generation_duration = self.config.generation_duration
         self.world = World(self.config)
         self.population = Population(self.config)
         self.screen = screen_init(self.config)
@@ -15,7 +16,7 @@ class Simulation():
     
     def run(self):
         pygame.init()
-        while self.running:
+        while self.generation_duration > 0 and self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     self.running = False
@@ -28,4 +29,17 @@ class Simulation():
             # drawing everything
 
             screen_update()
+            self.generation_duration -= 1
             pygame.time.Clock().tick(60)
+        pygame.quit()
+    
+    def reset(self):
+        self.generation_duration = self.config.generation_duration
+        self.world = World(self.config)
+        self.population = Population(self.config)
+        self.screen = screen_init(self.config)
+    
+    def evolve(self):
+        while self.running:
+            self.run()
+            self.reset()

@@ -7,6 +7,8 @@ class Config:
         self.tile_width = 5
         self.tile_height = 5
 
+        self.generation_duration = 300
+
         self.danger_tiles = 20
         self.food_tiles = 900
 
