@@ -8,13 +8,11 @@ from utils.visualisation import (render_world, screen_init, screen_update)
 class Simulation():
     def __init__(self):
         self.config = Config()
-        self.generation_duration = self.config.generation_duration
-        self.world = World(self.config)
-        self.population = Population(self.config)
-        self.screen = screen_init(self.config)
-        self.running = True
+        self.reset()
+        self.running = False
     
     def run(self):
+        self.running = True
         pygame.init()
         while self.generation_duration > 0 and self.running:
             for event in pygame.event.get():
