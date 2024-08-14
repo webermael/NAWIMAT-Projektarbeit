@@ -20,9 +20,13 @@ class Config:
         self.food_max_spread = 100
         self.food_spread_chance = 5 # final chance wile be 1 / spread_chance
 
-        self.population_size = 500
+        self.population_size = 50
 
-        self.organism_min_life = 60
-        self.organism_max_life = 100
+        self.organism_eyes_size = 2
+
+        self.nn_layer_sizes = ((self.organism_eyes_size * 2 + 1) ** 2, 5, 9)
+
+        self.organism_min_life = 200
+        self.organism_max_life = 400
         self.organism_min_vit = 80
         self.organism_max_vit = 100
