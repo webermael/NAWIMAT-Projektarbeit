@@ -18,6 +18,7 @@ class Simulation():
         self.running = False
         self.generation = 0
 
+
     def run(self):
         pygame.init()
         while self.generation_duration > 0 and self.running:
@@ -81,6 +82,7 @@ class Simulation():
         self.world = World(self.config)
         self.population = self.new_gen()
         self.screen = screen_init(self.config)
+    
     
     def evolve(self):
         self.running = True

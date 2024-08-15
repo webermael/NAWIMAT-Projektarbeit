@@ -26,8 +26,8 @@ class Config:
 
         self.organism_eyes_size = 2
 
-
         self.nn_layer_sizes = ((self.organism_eyes_size * 2 + 1) ** 2, 5, 9)
 
         self.organism_start_life = 350
         self.organism_tick_damage = 1
+
