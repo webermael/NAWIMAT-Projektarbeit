@@ -42,6 +42,8 @@ class Simulation():
     def normalize_score(self):
         total = 0
         for organism in self.population.organisms: # calculates the total score of all organisms
+            if organism.alive:
+                organism.score += self.config.survivor_bonus
             organism.score += organism.lifetime
             total += organism.score
         for organism in self.population.organisms:
@@ -76,19 +78,30 @@ class Simulation():
                                reproduction(self.config, self.selection(self.population.organisms), self.selection(self.population.organisms)))
             new_population.organisms[organism] = new_org
         return new_population
+    
+    def stats(self):
+        avg_score = 0
+        survival_rate = 0
+        for organism in self.population.organisms:
+            avg_score += organism.score / self.config.population_size
+            if organism.alive:
+                survival_rate += (1 / self.config.population_size) * 100
+        return round(avg_score, 2), round(survival_rate, 2)
 
 
     def reset(self):
+        stats = self.stats()
+        print("Average Score:", stats[0],f"\nSurvival Rate: {stats[1]}%")
         self.generation_duration = self.config.generation_duration
         self.world = World(self.config)
         self.population = self.new_gen()
         self.screen = screen_init(self.config)
-    
+
     
     def evolve(self):
         self.running = True
         while self.running:
             self.generation_counter += 1
-            print("Generation:", self.generation_counter)
+            print("\nGeneration:", self.generation_counter)
             self.run()
             self.reset()
