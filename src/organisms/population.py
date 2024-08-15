@@ -16,12 +16,12 @@ class Population:
             if organism.alive:
                 organism.draw(config, display)
     
-    def update(self, config, grid):
+    def update(self, config, world):
         for organism in self.organisms:
             if organism.alive:
-                organism.update(config, grid)
+                organism.update(config, world)
             else:
-                grid[organism.position.y][organism.position.x].has_organism = False
+                world[organism.position.y][organism.position.x].has_organism = False
 
     def update_lifetime(self):
         for organism in self.organisms:
