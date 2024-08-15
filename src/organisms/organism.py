@@ -30,12 +30,15 @@ class Organism:
 
     def eat(self, config, world):
         world[self.position.y][self.position.x] = Empty(config, self.position.x, self.position.y)
+        self.lifetime += config.food_bonus
 
     def move(self, config, direction, world):
         if 0 <= self.position.x + direction[0] < config.row_length and 0 <= self.position.y + direction[1] < config.column_length:
             if not world[self.position.y + direction[1]][self.position.x + direction[0]].has_organism:
                 self.position.x += direction[0]
                 self.position.y += direction[1]
+        else:
+            self.lifetime -= config.border_damage
 
     def update_lifetime(self, config):
         self.lifetime -= config.organism_tick_damage
@@ -49,6 +52,8 @@ class Organism:
         world[self.position.y][self.position.x].has_organism = True
         if world[self.position.y][self.position.x].content == "food":
             self.eat(config, world)
+        elif world[self.position.y][self.position.x].content == "danger":
+            self.lifetime -= config.danger_damage
         self.update_lifetime(config)
 
 
