@@ -16,7 +16,7 @@ class Simulation():
         self.population = Population(self.config)
         self.screen = screen_init(self.config)
         self.running = False
-        self.generation = 0
+        self.generation_counter = 0
 
 
     def run(self):
@@ -87,7 +87,7 @@ class Simulation():
     def evolve(self):
         self.running = True
         while self.running:
-            self.generation += 1
-            print("Generation:", self.generation)
+            self.generation_counter += 1
+            print("Generation:", self.generation_counter)
             self.run()
             self.reset()
