@@ -9,6 +9,8 @@ class Config:
 
         self.generation_duration = 300
 
+        self.tickspeed = 60
+
         self.danger_tiles = 20
         self.food_tiles = 900
 
@@ -26,7 +28,6 @@ class Config:
 
         self.nn_layer_sizes = ((self.organism_eyes_size * 2 + 1) ** 2, 5, 9)
 
-        self.organism_min_life = 200
-        self.organism_max_life = 400
-        self.organism_min_vit = 80
-        self.organism_max_vit = 100
+        self.organism_start_life = 350
+        self.organism_tick_damage = 1
+

@@ -8,8 +8,7 @@ import pygame
 class Organism:
     def __init__(self, config, x_pos, y_pos, nn = False):
         self.position = Position(x_pos, y_pos)
-        self.vitality = randint(config.organism_min_vit, config.organism_max_vit) # current state of wellbeing, used to reduce lifetime more/less, randomized at the beginning
-        self.lifetime = randint(config.organism_min_life, config.organism_max_life) # how long the organism will live, randomized
+        self.lifetime = config.organism_start_life # how long the organism will live
         self.alive = True
         self.eyes = Eyes(config.organism_eyes_size)
         if nn:
@@ -38,8 +37,8 @@ class Organism:
                 self.position.x += direction[0]
                 self.position.y += direction[1]
 
-    def update_lifetime(self):
-        self.lifetime -= 100 / self.vitality
+    def update_lifetime(self, config):
+        self.lifetime -= config.organism_tick_damage
         if self.lifetime <= 0:
             self.alive = False
             self.lifetime = 0
@@ -50,7 +49,7 @@ class Organism:
         world[self.position.y][self.position.x].has_organism = True
         if world[self.position.y][self.position.x].content == "food":
             self.eat(config, world)
-        self.update_lifetime()
+        self.update_lifetime(config)
 
 
     def draw(self, config, display):
