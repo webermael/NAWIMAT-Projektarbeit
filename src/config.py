@@ -24,6 +24,10 @@ class Config:
         self.food_spread_chance = 2 # final chance wile be 1 / spread_chance
         self.food_bonus = 42
 
+        self.mutation_rate = 0.01
+        self.mutation_min_multiplier = 0.90
+        self.mutation_max_multiplier = 1.10
+
         self.population_size = 300 
 
         self.organism_eyes_size = 2
@@ -33,4 +37,5 @@ class Config:
         self.organism_start_life = 150
         self.organism_tick_damage = 1
         self.border_damage = 100
-        self.move_bonus = 5
+        self.move_bonus = 1
+        self.survivor_bonus = 50
