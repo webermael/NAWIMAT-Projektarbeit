@@ -6,13 +6,16 @@ from random import randint
 import pygame
 
 class Organism:
-    def __init__(self, config, x_pos, y_pos):
+    def __init__(self, config, x_pos, y_pos, nn = False):
         self.position = Position(x_pos, y_pos)
         self.vitality = randint(config.organism_min_vit, config.organism_max_vit) # current state of wellbeing, used to reduce lifetime more/less, randomized at the beginning
         self.lifetime = randint(config.organism_min_life, config.organism_max_life) # how long the organism will live, randomized
         self.alive = True
-        self.eyes = Eyes(2)
-        self.nn = NeuralNetwork(((self.eyes.size * 2 + 1) ** 2, 5, 9)) 
+        self.eyes = Eyes(config.organism_eyes_size)
+        if nn:
+            self.nn = nn
+        else:
+            self.nn = NeuralNetwork(config.nn_layer_sizes) 
         # Inputs will later be determined by the tiles the organism "sees" through the sensors class
         # Hidden Layers will be randomized or set the same for every organism at the beginning and later changed through mutations
         # One output for every action an organism can do, at the moment it's moving to any adjacent tile including the current one
@@ -39,6 +42,7 @@ class Organism:
         self.lifetime -= 100 / self.vitality
         if self.lifetime <= 0:
             self.alive = False
+            self.lifetime = 0
     
     def update(self, config, world):
         world[self.position.y][self.position.x].has_organism = False
@@ -46,7 +50,7 @@ class Organism:
         world[self.position.y][self.position.x].has_organism = True
         if world[self.position.y][self.position.x].content == "food":
             self.eat(config, world)
-        # self.update_lifetime()
+        self.update_lifetime()
 
 
     def draw(self, config, display):
