@@ -33,3 +33,4 @@ class Config:
         self.organism_start_life = 150
         self.organism_tick_damage = 1
         self.border_damage = 100
+        self.move_bonus = 1

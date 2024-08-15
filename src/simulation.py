@@ -39,25 +39,26 @@ class Simulation():
         pygame.quit()
     
 
-    def normalize_lifetime(self):
+    def normalize_score(self):
         total = 0
-        for organism in self.population.organisms: # calculates the total "score" of all organisms
-            total += organism.lifetime
+        for organism in self.population.organisms: # calculates the total score of all organisms
+            organism.score += organism.lifetime
+            total += organism.score
         for organism in self.population.organisms:
-            organism.lifetime = organism.lifetime / total # divides all lifetimes so they all add up to 1
+            organism.score = organism.score / total # divides all scores so they all add up to 1
 
 
     def selection(self, organisms):
         start = random.random()
         index = 0
         while start > 0:
-            start -= organisms[index].lifetime 
+            start -= organisms[index].score 
             index += 1
         return organisms[index - 1].nn
     '''
-    The selection function picks a random number from 0 to 1, the lifetime of every organism combined is 1 after being normalized by the noramlize lifetime function
-    If the start value was 1, you could subtract every lifetime and the last organism in the list, would finall bring it to 0
-    This way, any score/lifetime, that is higher than another gets a bigger chance of being selected:
+    The selection function picks a random number from 0 to 1, the score of every organism combined is 1 after being normalized by the noramlize score function
+    If the start value was 1, you could subtract every score and the last organism in the list, would finall bring it to 0
+    This way, any score/score, that is higher than another gets a bigger chance of being selected:
     Imagine one organism having a score of 0.9 (out of 1), so the rest of the organisms would all add up to 0.1
     If the starting value is lower than 0.9, this organism would always be selected, 
     as the other ones could only bring the value down to 0.8 and the strong organism would always get it to 0 or lower
@@ -66,7 +67,7 @@ class Simulation():
 
     def new_gen(self):
         new_population = Population(self.config)
-        self.normalize_lifetime()
+        self.normalize_score()
 
         for organism in range(self.config.population_size):
             new_org = Organism(self.config, 
