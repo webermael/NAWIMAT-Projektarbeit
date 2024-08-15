@@ -41,7 +41,7 @@ class Organism:
         self.lifetime -= config.organism_tick_damage
         if self.lifetime <= 0:
             self.alive = False
-            self.lifetime = 0
+            self.lifetime = 1 # everyone get's a chance at reproduction
     
     def update(self, config, world):
         world[self.position.y][self.position.x].has_organism = False
