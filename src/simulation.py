@@ -16,6 +16,7 @@ class Simulation():
         self.population = Population(self.config)
         self.screen = screen_init(self.config)
         self.running = False
+        self.generation = 0
 
     def run(self):
         pygame.init()
@@ -33,7 +34,7 @@ class Simulation():
 
             screen_update()
             self.generation_duration -= 1
-            pygame.time.Clock().tick(60)
+            pygame.time.Clock().tick(self.config.tickspeed)
         pygame.quit()
     
 
@@ -84,5 +85,7 @@ class Simulation():
     def evolve(self):
         self.running = True
         while self.running:
+            self.generation += 1
+            print("Generation:", self.generation)
             self.run()
             self.reset()
