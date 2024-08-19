@@ -5,7 +5,6 @@ class Config:
         self.column_length = 128
 
         self.tile_width = 5
-        self.tile_height = 5
 
         self.generation_duration = 600
 
@@ -17,7 +16,7 @@ class Config:
         self.danger_min_life = 15
         self.danger_max_life = 15
         self.danger_spread_chance = 100 # final chance will be 1 / spread_chance
-        self.danger_damage = 5 
+        self.danger_damage = 20
 
         self.food_min_spread = 30
         self.food_max_spread = 50
@@ -29,9 +28,9 @@ class Config:
 
         self.population_size = 300 
 
-        self.organism_eyes_size = 4
+        self.organism_eyes_size = 5
 
-        self.nn_layer_sizes = ((self.organism_eyes_size * 2 + 1) ** 2, 10, 5, 9)
+        self.nn_layer_sizes = (2 * (self.organism_eyes_size ** 2 + self.organism_eyes_size), self.organism_eyes_size * 5, self.organism_eyes_size * 2, 9)
 
         self.organism_start_life = 400
         self.organism_tick_damage = 1
