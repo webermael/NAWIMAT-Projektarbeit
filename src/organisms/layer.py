@@ -6,7 +6,7 @@ class Layer:
         self.size = size
         self.nodes_in = nodes_in # number of nodes in the previous layer
         self.weights = [[random.uniform(-5, 5) for node in range(nodes_in)] for i in range(size)] # every node has a list of weights for all ingiong nodes
-        self.biases = [random.uniform(-5, 5) / 10 for node in range(size)] # bias for every node in the layer
+        self.biases = [random.uniform(-5, 5) for node in range(size)] # bias for every node in the layer
     
 
     def activationFunction(self, x): # used on the output of every node to have a cleaner transition between high and low values and keep outputs small 
