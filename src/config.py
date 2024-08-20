@@ -6,7 +6,7 @@ class Config:
 
         self.tile_width = 5
 
-        self.generation_duration = 600
+        self.generation_duration = 350 
 
         self.tickspeed = 180
 
@@ -26,14 +26,14 @@ class Config:
         self.mutation_rate = 0.01
         self.mutation_max_difference = 0.1
 
-        self.population_size = 300 
+        self.population_size = 300
 
         self.organism_eyes_size = 5
 
-        self.nn_layer_sizes = (2 * (self.organism_eyes_size ** 2 + self.organism_eyes_size), self.organism_eyes_size * 5, self.organism_eyes_size * 2, 9)
+        self.nn_layer_sizes = (2 * (self.organism_eyes_size ** 2 + self.organism_eyes_size) + 1, self.organism_eyes_size * 5, self.organism_eyes_size * 2, 9)
 
-        self.organism_start_life = 400
+        self.organism_start_life = 200
         self.organism_tick_damage = 1
         self.border_damage = 100
-        self.move_bonus = 0.0000001
-        self.survivor_bonus = 100
+        self.move_bonus = 0.01
+        self.survivor_bonus = 500
