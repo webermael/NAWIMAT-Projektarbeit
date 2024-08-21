@@ -2,6 +2,6 @@ import tkinter
 
 class GUI:
   def __init__(self):
-    self.root = tk.TK()
+    self.root = tkinter.TK()
 
 
