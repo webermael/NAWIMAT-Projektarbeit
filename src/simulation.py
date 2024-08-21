@@ -20,7 +20,6 @@ class Simulation():
 
 
     def run(self):
-        pygame.init()
         while self.generation_duration > 0 and self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
@@ -36,7 +35,6 @@ class Simulation():
             screen_update()
             self.generation_duration -= 1
             pygame.time.Clock().tick(self.config.tickspeed)
-        pygame.quit()
     
 
     def normalize_score(self):
@@ -79,6 +77,14 @@ class Simulation():
             new_population.organisms[organism] = new_org
         return new_population
     
+
+    def score_calculation(self):
+        for organism in self.population.organisms:
+            if organism.alive:
+                organism.score += self.config.survivor_bonus
+            organism.score += organism.lifetime
+
+
     def stats(self):
         avg_score = 0
         survival_rate = 0
@@ -90,18 +96,20 @@ class Simulation():
 
 
     def reset(self):
+        self.score_calculation()
         stats = self.stats()
         print("Average Score:", stats[0],f"\nSurvival Rate: {stats[1]}%")
         self.generation_duration = self.config.generation_duration
         self.world = World(self.config)
         self.population = self.new_gen()
-        self.screen = screen_init(self.config)
 
     
     def evolve(self):
+        pygame.init()
         self.running = True
         while self.running:
             self.generation_counter += 1
             print("\nGeneration:", self.generation_counter)
             self.run()
             self.reset()
+        pygame.quit()
