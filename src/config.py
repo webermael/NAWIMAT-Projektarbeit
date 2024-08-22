@@ -4,11 +4,11 @@ class Config:
         self.row_length = 128
         self.column_length = 128
 
-        self.tile_width = 5
+        self.tile_width = 6
 
-        self.generation_duration = 350 
+        self.generation_duration = 1000 
 
-        self.tickspeed = 180
+        self.tickspeed = 0
 
         self.danger_tiles = 100
         self.food_tiles = 1000

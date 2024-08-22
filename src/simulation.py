@@ -24,7 +24,7 @@ class Simulation():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     self.running = False
-            self.screen.fill((255, 255, 255))
+            self.screen.fill((50, 80, 20))
 
             self.world.spread(self.config)
             self.world.draw(self.config, self.screen)

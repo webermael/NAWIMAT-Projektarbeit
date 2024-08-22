@@ -4,6 +4,7 @@ from world.tile import Position
 from world.environment import Food, Danger, Empty
 from random import randint
 import pygame
+import math
 
 class Organism:
     def __init__(self, config, x_pos, y_pos, nn = False):
@@ -62,4 +63,4 @@ class Organism:
 
 
     def draw(self, config, display):
-        pygame.draw.circle(display, (0, 0, 0), (config.tile_width * (self.position.x + 1 / 2) , config.tile_width * (self.position.y + 1/ 2)), config.tile_width / 2)
+        pygame.draw.circle(display, (math.sqrt((255 ** 2 - self.lifetime ** 2 + abs(255 ** 2 - self.lifetime ** 2)) / 2), (255 - math.sqrt((255 ** 2 - self.lifetime ** 2 + abs(255 ** 2 - self.lifetime ** 2)) / 2)) / 2, 255 - math.sqrt((255 ** 2 - self.lifetime ** 2 + abs(255 ** 2 - self.lifetime ** 2)) / 2)), (config.tile_width * (self.position.x + 1 / 2) , config.tile_width * (self.position.y + 1/ 2)), config.tile_width / 2)
