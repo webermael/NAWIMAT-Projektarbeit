@@ -2,10 +2,13 @@ from organisms.layer import Layer
 
 
 class NeuralNetwork:
-    def __init__(self, layer_sizes : list[int]):
+    def __init__(self, layer_sizes : list[int], weights = False, biases = False):
         self.layers = []
         for layer in range(len(layer_sizes) - 1):
-            self.layers.append(Layer(layer_sizes[layer], layer_sizes[layer + 1])) # creates layer objects for all hidden layers and the output layer 
+            if weights and biases:
+                self.layers.append(Layer(layer_sizes[layer], layer_sizes[layer + 1], weights[layer], biases[layer]))
+            else:
+                self.layers.append(Layer(layer_sizes[layer], layer_sizes[layer + 1])) # creates layer objects for all hidden layers and the output layer 
     
     def calc_output(self, inputs):
         for layer in self.layers:
