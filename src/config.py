@@ -23,14 +23,14 @@ class Config:
         self.food_spread_chance = 2 # final chance wile be 1 / spread_chance
         self.food_bonus = 42
 
-        self.mutation_rate = 0.01
-        self.mutation_max_difference = 0.1
+        self.mutation_rate = 0.05
+        self.mutation_max_difference = 0.25
 
         self.population_size = 300
 
-        self.organism_eyes_size = 5
+        self.organism_eyes_size = 3
 
-        self.nn_layer_sizes = (2 * (self.organism_eyes_size ** 2 + self.organism_eyes_size) + 1, self.organism_eyes_size * 5, self.organism_eyes_size * 2, 9)
+        self.nn_layer_sizes = (2 * (self.organism_eyes_size ** 2 + self.organism_eyes_size) + 1, (1 + self.organism_eyes_size) * 4, (1 + self.organism_eyes_size) * 2, 9)
 
         self.organism_start_life = 200
         self.organism_tick_damage = 1
