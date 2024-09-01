@@ -34,7 +34,7 @@ class Danger(Tile):
       for y in range(self.position.y - 1, self.position.y + 2):
         for x in range(self.position.x - 1, self.position.x + 2):
           if y >= 0 and y < config.column_length and x >= 0 and x < config.row_length:
-            if randint(0, config.danger_spread_chance) == 0:
+            if randint(0, config.danger_spread_chance) == 0 and world[y][x].content != "danger":
               world[y][x] = Danger(config, x, y)
       self.lifetime -= 1
     else:
