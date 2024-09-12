@@ -10,10 +10,11 @@ from utils.visualisation import (render_world, screen_init, screen_update)
 
 class Simulation():
     def __init__(self, input_dict):
+        self.inputs = input_dict
         self.config = Config()
-        self.generation_duration = self.config.generation_duration
+        self.generation_duration = input_dict["generation_duration"]
         self.world = World(self.config)
-        self.population = Population(self.config, input_dict)
+        self.population = Population(self.config, input_dict["population"])
         self.screen = screen_init(self.config)
         self.running = False
         self.generation_counter = input_dict["generation_counter"]
@@ -66,7 +67,7 @@ class Simulation():
     
 
     def new_gen(self):
-        new_population = Population(self.config)
+        new_population = Population(self.config, self.inputs["population"])
         self.normalize_score()
 
         for organism in range(self.config.population_size):
@@ -100,8 +101,9 @@ class Simulation():
         stats = self.stats()
         print("Average Score:", stats[0],f"\nSurvival Rate: {stats[1]}%")
         self.generation_duration = self.config.generation_duration
-        self.world = World(self.config)
-        self.population = self.new_gen()
+        if self.running:
+            self.world = World(self.config)
+            self.population = self.new_gen()
 
     
     def evolve(self):
