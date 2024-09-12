@@ -3,34 +3,32 @@ from world.environment import Danger, Food, Empty
 from random import randint
 
 class World:
-    def __init__(self, config):
-        self.width = config.row_length
-        self.height = config.column_length
-        self.grid = [[Empty(config, x_pos, y_pos) for x_pos in range(self.width)] for y_pos in range(self.height)]
+    def __init__(self, inputs):
+        self.width = inputs["size"]["row_length"]
+        self.height = inputs["size"]["column_length"]
+        self.grid = [[Empty(inputs["size"]["tile_width"], x_pos, y_pos) for x_pos in range(self.width)] for y_pos in range(self.height)]
 
-        # testing, change later
         i = 0
-        while i < config.danger_tiles:
-            y = randint(0, config.column_length - 1)
-            x = randint(0, config.row_length - 1)
+        while i < inputs["danger"]["count"]:
+            y = randint(0, self.height - 1)
+            x = randint(0, self.width - 1)
             if self.grid[y][x].content == "empty":
-                self.grid[y][x] = Danger(config, x, y)
+                self.grid[y][x] = Danger(inputs, x, y)
                 i += 1
         i = 0
-        while i < config.food_tiles:
-            y = randint(0, config.column_length - 1)
-            x = randint(0, config.row_length - 1)
+        while i < inputs["food"]["count"]:
+            y = randint(0, self.height - 1)
+            x = randint(0, self.width - 1)
             if self.grid[y][x].content == "empty":
-                self.grid[y][x] = Food(config, x, y)
+                self.grid[y][x] = Food(inputs, x, y)
                 i += 1
-        #testing, change later
     
-    def draw(self, config, display):
+    def draw(self, tile_width, display):
         for column in self.grid:
             for tile in column:
-                tile.draw(config, display)
+                tile.draw(tile_width, display)
     
-    def spread(self, config):
+    def update(self, inputs):
         for column in self.grid:
             for tile in column:
-                tile.spread(self.grid, config)
+                tile.spread(inputs, self.grid)

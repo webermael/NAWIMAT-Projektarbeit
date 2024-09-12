@@ -3,30 +3,30 @@ from organisms.neural_network import NeuralNetwork
 from random import randint
 
 class Population:
-    def __init__(self, config, input_dict):
+    def __init__(self, inputs, world_sizes):
         self.organisms = []
         self.organism_coords = []
-        while len(self.organisms) < config.population_size:
-            coords = (randint(0, config.row_length - 1), randint(0, config.column_length - 1))
+        while len(self.organisms) < inputs["population_size"]:
+            coords = (randint(0, world_sizes["row_length"] - 1), randint(0, world_sizes["column_length"] - 1))
             if coords not in self.organism_coords:
-                if input_dict["organisms"]["networks"] != False:
-                    nn = NeuralNetwork(config.nn_layer_sizes, 
-                                       input_dict["organisms"]["networks"][len(self.organisms)]["weights"],
-                                       input_dict["organisms"]["networks"][len(self.organisms)]["biases"])
-                    self.organisms.append(Organism(config, coords[0], coords[1], nn))
+                if inputs["organisms"]["networks"]:
+                    nn = NeuralNetwork(inputs["organisms"]["nn_layer_sizes"], 
+                                       inputs["organisms"]["networks"][len(self.organisms)]["weights"],
+                                       inputs["organisms"]["networks"][len(self.organisms)]["biases"])
+                    self.organisms.append(Organism(inputs["organisms"], coords[0], coords[1], nn))
                 else:
-                    self.organisms.append(Organism(config, coords[0], coords[1]))
+                    self.organisms.append(Organism(inputs["organisms"], coords[0], coords[1]))
                 self.organism_coords.append(coords)
     
-    def draw(self, config, display):
+    def draw(self, tile_width, display):
         for organism in self.organisms:
             if organism.alive:
-                organism.draw(config, display)
+                organism.draw(tile_width, display)
     
-    def update(self, config, world):
+    def update(self, inputs, world):
         for organism in self.organisms:
             if organism.alive:
-                organism.update(config, world)
+                organism.update(inputs, world)
             else:
                 world[organism.position.y][organism.position.x].has_organism = False
 

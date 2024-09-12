@@ -18,7 +18,7 @@ class FileManager:
                         [layer.biases for layer in simulation.population.organisms[organism].nn.layers]
                     }
                     for organism in range(len(simulation.population.organisms))
-                    ],
+                    ]
         loaded_dict["population"]["organisms"]["networks"] = networks
         loaded_dict["generation_counter"] = simulation.generation_counter
         return loaded_dict

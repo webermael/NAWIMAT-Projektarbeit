@@ -4,15 +4,15 @@ class Position:
         self.y = y
 
 class Tile:
-    def __init__(self, config, x_pos, y_pos, content):
-        self.width = config.tile_width
+    def __init__(self, tile_width, x_pos, y_pos, content):
+        self.width = tile_width
         self.position = Position(x_pos, y_pos)
         self.content = content
         self.has_organism = False
     
-    def draw(self, config, display):
+    def draw(self, tile_width, display):
         pass
     
-    def spread(self, world, config):
+    def spread(self, inputs, world):
         pass
 

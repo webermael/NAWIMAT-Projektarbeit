@@ -1,16 +1,15 @@
-#import pygame
-#from config import Config
-#from world.world import World
-#from organisms.population import Population
-#from utils.visualisation import (render_world, screen_init, screen_update)
-#from evolution.reproduction import reproduce
-#from evolution.mutation import mutate
 from simulation import Simulation
 from utils.file_manager import FileManager
 
 def main():
     fm = FileManager()
     load_dict = fm.load_file("template.json")
+
+    eyes_size = load_dict["population"]["organisms"]["eyes_size"]
+    load_dict["population"]["organisms"]["nn_layer_sizes"] = [2 * (eyes_size ** 2 + eyes_size) + 3, 
+                                                                (1 + eyes_size) * 4, 
+                                                                (1 + eyes_size) * 2, 
+                                                                9]
     simulation = Simulation(load_dict)
 
     simulation.evolve()
