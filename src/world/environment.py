@@ -38,9 +38,11 @@ class Danger(Tile):
     if self.lifetime > 0:
       for y in range(self.position.y - 1, self.position.y + 2):
         for x in range(self.position.x - 1, self.position.x + 2):
+
           if y >= 0 and y < inputs["size"]["column_length"] and x >= 0 and x < inputs["size"]["row_length"]:
             if randint(0, inputs["danger"]["spread_chance"]) == 0 and world[y][x].content != "danger":
               world[y][x] = Danger(inputs, x, y)
+
       self.lifetime -= 1
     else:
       world[self.position.y][self.position.x] = Empty(inputs["size"]["tile_width"], self.position.x, self.position.y)
