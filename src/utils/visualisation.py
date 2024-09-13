@@ -1,7 +1,7 @@
 import pygame
 
-def screen_init(config):
-    size = (config.tile_width * config.row_length, config.tile_width * config.column_length)
+def screen_init(inputs):
+    size = (inputs["tile_width"] * inputs["row_length"], inputs["tile_width"] * inputs["column_length"])
     screen = pygame.display.set_mode(size)
     screen.fill((255, 255, 255))
     return screen

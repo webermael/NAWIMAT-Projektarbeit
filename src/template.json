@@ -1,0 +1,52 @@
+{
+    "world": 
+    {
+        "size": 
+        {
+            "column_length": 128, 
+            "row_length": 128,
+            "tile_width": 5
+        }, 
+        "danger": 
+        {
+            "count": 100, 
+            "min_life": 15, 
+            "max_life": 27, 
+            "spread_chance": 100, 
+            "damage": 20
+        }, 
+        "food": 
+        {
+            "count": 500, 
+            "min_spread": 30, 
+            "max_spread": 50, 
+            "spread_chance": 2, 
+            "lifetime_bonus": 50
+        }
+    }, 
+    "population": 
+    {
+        "organisms": 
+        {
+            "networks": false,
+            "start_life": 200, 
+            "eyes_size": 3,
+            "nn_layer_sizes": 0
+        }, 
+        "mutations": 
+        {
+            "probability": 0.05, 
+            "max_difference": 0.25
+        }, 
+        "interactions": 
+        {
+            "border_damage": 100,
+            "move_bonus": 0.01,
+            "survivor_bonus": 500
+        }, 
+        "population_size": 300
+    }, 
+    "generation_counter": 0, 
+    "generation_duration": 350,
+    "tickspeed": 180
+}
