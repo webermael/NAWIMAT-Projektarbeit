@@ -1,24 +1,43 @@
 import tkinter as tk
-from tk import ttk
+from tkinter import ttk
 
 class Startpage:
-  def __init__(self, config):
+  def __init__(self):
     # setup
     self.root = tk.Tk()
-    Config(self.startpage)
+    self.root.title("Simulation")
+    self.root.geometry("300x400")
+    # Config(self.root)
+    self.root.columnconfigure(0, weight=1)
+    self.root.columnconfigure(1, weight=3)
+    self.root.columnconfigure(2, weight=1)
+    self.root.rowconfigure(0, weight=1)
+    self.root.rowconfigure(1, weight=1)
+    self.root.rowconfigure(2, weight=1)
+    self.root.rowconfigure(3, weight=1)
+    self.root.rowconfigure(4, weight=1)
 
-    # widgets
-    self.lTitle = tk.ttk.Label(self.root , text = "SimEvolator", font = ('Arial'))  
-    self.lTitle.place(relx = 0.2, rely = 0.1, relwidth = 0.6) 
+    self.lTitle = tk.ttk.Label(self.root, text = "SimEvolator")  
+    self.lTitle.grid(column=1, row=1) 
 
-    self.bStart = tk.ttk.Button(self.root , text = "Start!", font = ('Arial'), command = self.start)
-    self.bStart.place(relx = 0.4, rely = 0.6, relwidth = 0.4, relheigt = 0.247) 
-    
+    self.bStart = tk.ttk.Button(self.root, text = "Start!", command = self.start)
+    self.bStart.grid(column=1, row=2)
+
+    self.bConfig = tk.ttk.Button(self.root, text = "Config", command = self.start)
+    self.bConfig.grid(column=1, row=3)
+
+  def run(self):
     self.root.mainloop()
-    
-    def start(self):
-      self.root.destroy()# closes Startpage
-      Settings()# opens Settings
+
+  def start(self):
+    self.root.destroy()# closes Startpage
+    Settings()# opens Settings
+
+  def config(self):
+    self.root.destroy()
+    Config()
+
+  # widgets
     
 class Settings:
   def __init__(self, config):
@@ -27,12 +46,12 @@ class Settings:
     Config(self.settings)
     
     #widgets
-    self.scales = {
-      self.scaleRowLength = Scale(self.settings, 1, 5000)    
-      self.scaleColumnLength = Scale(self.settings, 1, 5000)
-      self.scalePopulation = Scale(self.settings, 10, 1000)
-      self.scaleGeneration = Scale(self.settings, 1, 1000)
-      }
+    # self.scales = {
+    #   self.scaleRowLength = Scale(self.settings, 1, 5000)    
+    #   self.scaleColumnLength = Scale(self.settings, 1, 5000)
+    #   self.scalePopulation = Scale(self.settings, 10, 1000)
+    #   self.scaleGeneration = Scale(self.settings, 1, 1000)
+    #   }
     
     self.scrollbar = tk.ttk.Scrollbar(self.settings, orient='vertical', command=self.scales.yview)# .yview is a problem yet
     self.scrollbar.grid(row=0, column=1, sticky=tk.NS)
@@ -62,4 +81,7 @@ class Scale:
   def __init__(self, root, scaleLow, scaleHigh):
     self.scale = tk.ttk.Scale(root, from_ = scaleLow, to = scaleHigh)
     self.scale.pack(expand = True) # not really a solution
-        
+
+
+startpage = Startpage()
+startpage.run()
