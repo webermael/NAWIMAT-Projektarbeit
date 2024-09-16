@@ -1,6 +1,6 @@
 import random
-def mutation(config, value):
-    if random.random() <= config.mutation_rate:
-        return value + random.uniform(config.mutation_max_difference, -config.mutation_max_difference)
+def mutation(inputs, value):
+    if random.random() <= inputs["probability"]:
+        return value + random.uniform(inputs["max_difference"], -inputs["max_difference"])
     else:
         return value

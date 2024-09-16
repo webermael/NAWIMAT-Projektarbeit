@@ -1,51 +1,48 @@
 import pygame
 import random
-from config import Config
 from world.world import World
 from organisms.population import Population
 from organisms.organism import Organism
 from evolution.reproduction import reproduction
-from utils.visualisation import (render_world, screen_init, screen_update)
+from utils.visualisation import screen_init, screen_update
 
 
 class Simulation():
-    def __init__(self):
-        self.config = Config()
-        self.generation_duration = self.config.generation_duration
-        self.world = World(self.config)
-        self.population = Population(self.config)
-        self.screen = screen_init(self.config)
+    def __init__(self, input_dict):
+        self.inputs = input_dict
+        self.generation_duration = input_dict["generation_duration"]
+        self.world = World(self.inputs["world"])
+        self.population = Population(input_dict["population"], self.inputs["world"]["size"])
+        self.screen = screen_init(self.inputs["world"]["size"])
         self.running = False
-        self.generation_counter = 0
+        self.generation_counter = input_dict["generation_counter"]
 
 
     def run(self):
-        while self.generation_duration > 0 and self.running:
+        while self.generation_duration > 0:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     self.running = False
             self.screen.fill((255, 255, 255))
 
-            self.world.spread(self.config)
-            self.world.draw(self.config, self.screen)
-            self.population.update(self.config, self.world.grid)
-            self.population.draw(self.config, self.screen)
+            self.world.update(self.inputs["world"])
+            self.world.draw(self.inputs["world"]["size"]["tile_width"], self.screen)
+            self.population.update(self.inputs, self.world.grid)
+            self.population.draw(self.inputs["world"]["size"]["tile_width"], self.screen)
             # drawing everything
 
             screen_update()
             self.generation_duration -= 1
-            pygame.time.Clock().tick(self.config.tickspeed)
+            pygame.time.Clock().tick(self.inputs["tickspeed"])
     
 
     def normalize_score(self):
         total = 0
         for organism in self.population.organisms: # calculates the total score of all organisms
-            if organism.alive:
-                organism.score += self.config.survivor_bonus
-            organism.score += organism.lifetime
             total += organism.score
-        for organism in self.population.organisms:
-            organism.score = organism.score / total # divides all scores so they all add up to 1
+        if total != 0:
+            for organism in self.population.organisms:
+                organism.score = organism.score / total # divides all scores so they all add up to 1
 
 
     def selection(self, organisms):
@@ -55,6 +52,7 @@ class Simulation():
             start -= organisms[index].score 
             index += 1
         return organisms[index - 1].nn
+
     '''
     The selection function picks a random number from 0 to 1, the score of every organism combined is 1 after being normalized by the noramlize score function
     If the start value was 1, you could subtract every score and the last organism in the list, would finall bring it to 0
@@ -66,14 +64,14 @@ class Simulation():
     
 
     def new_gen(self):
-        new_population = Population(self.config)
+        new_population = Population(self.inputs["population"], self.inputs["world"]["size"])
         self.normalize_score()
 
-        for organism in range(self.config.population_size):
-            new_org = Organism(self.config, 
+        for organism in range(self.inputs["population"]["population_size"]):
+            new_org = Organism(self.inputs["population"]["organisms"], 
                                new_population.organisms[organism].position.x, 
                                new_population.organisms[organism].position.y, 
-                               reproduction(self.config, self.selection(self.population.organisms), self.selection(self.population.organisms)))
+                               reproduction(self.inputs["population"], self.selection(self.population.organisms), self.selection(self.population.organisms)))
             new_population.organisms[organism] = new_org
         return new_population
     
@@ -81,7 +79,7 @@ class Simulation():
     def score_calculation(self):
         for organism in self.population.organisms:
             if organism.alive:
-                organism.score += self.config.survivor_bonus
+                organism.score += self.inputs["population"]["interactions"]["survivor_bonus"]
             organism.score += organism.lifetime
 
 
@@ -89,9 +87,9 @@ class Simulation():
         avg_score = 0
         survival_rate = 0
         for organism in self.population.organisms:
-            avg_score += organism.score / self.config.population_size
+            avg_score += organism.score / len(self.population.organisms)
             if organism.alive:
-                survival_rate += (1 / self.config.population_size) * 100
+                survival_rate += (1 / len(self.population.organisms)) * 100
         return round(avg_score, 2), round(survival_rate, 2)
 
 
@@ -99,9 +97,10 @@ class Simulation():
         self.score_calculation()
         stats = self.stats()
         print("Average Score:", stats[0],f"\nSurvival Rate: {stats[1]}%")
-        self.generation_duration = self.config.generation_duration
-        self.world = World(self.config)
-        self.population = self.new_gen()
+        self.generation_duration = self.inputs["generation_duration"]
+        if self.running:
+            self.world = World(self.inputs["world"])
+            self.population = self.new_gen()
 
     
     def evolve(self):
