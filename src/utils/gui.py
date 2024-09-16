@@ -22,6 +22,7 @@ class Slider:
 
     self.value_label = ttk.Label(self.frame, text=self.get_current_value())
     self.value_label.grid(column=2, row=0, sticky='e')
+
     self.frame.pack(expand = True)
 
   def get_current_value(self):
@@ -32,6 +33,7 @@ class Slider:
 
 class LoadWindow():
   def __init__(self):
+    # --- SETUP ---
     self.root = tk.Tk()
     self.root.title("Simulation")
     self.root.geometry("300x400")
@@ -44,14 +46,15 @@ class LoadWindow():
     self.root.rowconfigure(3, weight=1)
     self.root.rowconfigure(4, weight=1)
 
+    # --- CONTENT ---
     self.lTitle = tk.ttk.Label(self.root, text = "Load File")  
     self.lTitle.grid(column=1, row=1) 
 
-    self.bStart = tk.ttk.Button(self.root, text = "Use Template", command = self.template)
-    self.bStart.grid(column=1, row=2)
+    self.bTemplate = tk.ttk.Button(self.root, text = "Use Template", command = self.template)
+    self.bTemplate.grid(column=1, row=2)
 
-    self.bStart = tk.ttk.Button(self.root, text = "Choose File", command = self.load_file)
-    self.bStart.grid(column=1, row=3)
+    self.bLoadFile = tk.ttk.Button(self.root, text = "Choose File", command = self.load_file)
+    self.bLoadFile.grid(column=1, row=3)
 
     self.loaded_file = ""
 
@@ -75,12 +78,13 @@ class LoadWindow():
 
 class SettingsWindow():
   def __init__(self):
-    # Window
+    # --- SETUP ---
+    # window
     self.root = tk.Tk()
     self.root.title("Interface")
     self.root.geometry("300x400")
 
-    # Layout setup
+    # layout setup
     self.main_frame = tk.Frame(self.root)
     self.main_frame.pack(fill="both", expand=1)
 
@@ -109,41 +113,15 @@ class SettingsWindow():
     # add window -> content gets displayed
     self.canvas.create_window((0, 0), window=self.content_frame, anchor="nw")
 
-    # self.slider = tk.ttk.Scale(
-    #     self.content_frame,
-    #     from_=0,
-    #     to=100,
-    #     orient="horizontal",
-    #     command=self.printValue
-    # )
-    # self.slider.pack()
-
-    slider1 = Slider("Slider 1", self.content_frame, 0, 100)
-
-  def printValue(self, event):
-      print(self.slider.get())
+    # --- CONTENT ---
+    self.slider1 = Slider("Slider 1", self.content_frame, 0, 100)
+    self.bStart = tk.ttk.Button(self.content_frame, text = "Start", command = self.simulation.evolve)
+    self.bStart.pack()
 
   def run(self):
     self.root.mainloop()
-# class Settings MAX:
-#     # self.scales = {
-#     #   self.scaleRowLength = Scale(self.settings, 1, 5000)    
-#     #   self.scaleColumnLength = Scale(self.settings, 1, 5000)
-#     #   self.scalePopulation = Scale(self.settings, 10, 1000)
-#     #   self.scaleGeneration = Scale(self.settings, 1, 1000)
-#     #   }
-    
-#     self.scrollbar = tk.ttk.Scrollbar(self.settings, orient='vertical', command=self.scales.yview)# .yview is a problem yet
-#     self.scrollbar.grid(row=0, column=1, sticky=tk.NS)
-#     self.scales['yscrollcommand'] = self.scrollbar.set
 
-#     self.settings.mainloop()
-    
-#   def getScaleValue(self):# command for getting values from scales
-#     value1 = self.scaleRowLength.get()# Var names are all wrong
-#     value2 = self.scaleColumnLenght.get()
-#     value3 = self.scalePopulation.get()
-#     value4 = self.scaleGeneration.get()
-#     self.settings.destroy()# closes the window
-#     #start the sim
 
+class SaveWindow():
+  def __init__(self):
+    
