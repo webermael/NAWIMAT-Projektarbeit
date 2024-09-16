@@ -3,21 +3,21 @@ from tk import ttk
 
 class Startpage:
   def __init__(self, config):
-    #configs
-    self.startpage = tk.Tk()
+    # setup
+    self.root = tk.Tk()
     Config(self.startpage)
 
-    #widgets
-    self.label1 = tk.ttk.Label(self.startpage, text = "SimEvolator", font = ('Arial'))  
-    self.label1.place(relx = 0.2, rely = 0.1, relwidth = 0.6) 
+    # widgets
+    self.lTitle = tk.ttk.Label(self.root , text = "SimEvolator", font = ('Arial'))  
+    self.lTitle.place(relx = 0.2, rely = 0.1, relwidth = 0.6) 
 
-    self.button1 = tk.ttk.Button(self.startpage, text = "Start!", font = ('Arial'), command = self.start)
-    self.button1.place(relx = 0.4, rely = 0.6, relwidth = 0.4, relheigt = 0.247) 
+    self.bStart = tk.ttk.Button(self.root , text = "Start!", font = ('Arial'), command = self.start)
+    self.bStart.place(relx = 0.4, rely = 0.6, relwidth = 0.4, relheigt = 0.247) 
     
-    self.startpage.mainloop()
+    self.root.mainloop()
     
-    def start (self):
-      self.startpage.destroy()# closes Startpage
+    def start(self):
+      self.root.destroy()# closes Startpage
       Settings()# opens Settings
     
 class Settings:
