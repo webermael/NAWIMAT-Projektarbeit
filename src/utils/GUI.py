@@ -23,19 +23,19 @@ class Startpage:
     self.bStart = tk.ttk.Button(self.root, text = "Start!", command = self.start)
     self.bStart.grid(column=1, row=2)
 
-    self.bConfig = tk.ttk.Button(self.root, text = "Config", command = self.start)
-    self.bConfig.grid(column=1, row=3)
+    self.bSettings = tk.ttk.Button(self.root, text = "Settings", command = self.settings)
+    self.bSettings.grid(column=1, row=3)
 
   def run(self):
     self.root.mainloop()
 
-  def start(self):
-    self.root.destroy()# closes Startpage
-    Settings()# opens Settings
-
-  def config(self):
+  def start(self, simulation):
     self.root.destroy()
-    Config()
+    simulation.evolve()
+
+  def settings(self):
+    self.root.destroy()
+    Settings()
 
   # widgets
     
@@ -67,15 +67,15 @@ class Settings:
     self.settings.destroy()# closes the window
     #start the sim
 
-class Config:# maybe the class name is problematic
-  def __init__(self,root):
-    # root = tk.Tk() and root.mainloop() have to be directly in the specific class
-    self.geometry = "800x600"
-    root.geometry(self.geometry)
-    root.resizable(width = False, heigth = False)
+# class Config:# maybe the class name is problematic
+#   def __init__(self,root):
+#     # root = tk.Tk() and root.mainloop() have to be directly in the specific class
+#     self.geometry = "800x600"
+#     root.geometry(self.geometry)
+#     root.resizable(width = False, heigth = False)
     
-    self.title = "Simulation"
-    root.title(self.title)
+#     self.title = "Simulation"
+#     root.title(self.title)
 
 class Scale:
   def __init__(self, root, scaleLow, scaleHigh):
