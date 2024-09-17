@@ -101,7 +101,9 @@ class LoadWindow():
         title='Open a file',
         initialdir='~/',
         filetypes=filetypes)
-    self.root.destroy()
+
+    if self.loaded_file != "" and self.loaded_file != ():
+      self.root.destroy()
     
 
 class SettingsWindow():
@@ -189,13 +191,14 @@ class SaveWindow():
     self.lTitle = tk.ttk.Label(self.root, text = "Save File")  
     self.lTitle.grid(column=1, row=1) 
 
-    self.bSave = tk.ttk.Button(self.root, text = "Save", command = self.save)
+    self.bSave = tk.ttk.Button(self.root, text = "Save", command = self.save_file)
     self.bSave.grid(column=1, row=2)
 
     self.bRerun = tk.ttk.Button(self.root, text = "Rerun", command = self.rerun)
     self.bRerun.grid(column=1, row=3)
 
     self.save_file = ""
+    self.saving = False
 
 
   def run(self):
@@ -204,9 +207,15 @@ class SaveWindow():
   def save_file(self):
     filetypes = [('JSON files', '*.json')]
 
-    self.loaded_file = filedialog.askopenfilename(
-        title='Open a file',
+    self.save_file = filedialog.askopenfilename(
+        title='Choose a file',
         initialdir='~/',
         filetypes=filetypes)
-    self.root.destroy()
+    if self.save_file != "" and self.save_file != ():
+      print(self.save_file)
+      self.saving = True
+      self.root.destroy()
 
+  def rerun(self):
+    self.saving = False
+    self.root.destroy()
