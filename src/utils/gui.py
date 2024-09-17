@@ -54,7 +54,7 @@ class Box:
     self.label = ttk.Label(self.frame, text=f"{value}:")
     self.label.grid(column=0, row=0, sticky='w')
 
-    self.frame.pack(padx=5, pady=5)
+    self.frame.pack(padx=5, pady=5, fill="x")
 
   def validate(self, input_value):
     return input_value.count(".") in [0, 1] and input_value.replace(".", "").isdigit()
@@ -75,7 +75,7 @@ class LoadWindow():
     self.root.rowconfigure(4, weight=1)
 
     # --- CONTENT ---
-    self.lTitle = tk.ttk.Label(self.root, text = "Load File")  
+    self.lTitle = tk.ttk.Label(self.root, text = "Load File", font = ("Helvetica", 20))  
     self.lTitle.grid(column=1, row=1) 
 
     self.bTemplate = tk.ttk.Button(self.root, text = "Use Template", command = self.template)
@@ -116,7 +116,7 @@ class SettingsWindow():
     self.in_dict = load_dict
     self.start_simulation = False
     self.boxes = {}
-    tk.Label(self.root, text="Settings").pack()
+    tk.Label(self.root, text="Settings", font=("Helvetica", 20)).pack()
     for key in self.in_dict.keys():
       if type(self.in_dict[key]) is not dict:
         if key != "generation_counter":
@@ -126,7 +126,7 @@ class SettingsWindow():
                                 self.in_dict[key] * 2,
                                 self.in_dict[key])
       else:
-        tk.Label(self.root, text=f"{key}".capitalize()).pack()
+        tk.Label(self.root, text=f"{key}".capitalize(), font=("Helvetica", 16)).pack()
         self.boxes[key] = {}
         for sub_key in self.in_dict[key].keys():
           if type(self.in_dict[key][sub_key]) is not dict:
@@ -136,7 +136,7 @@ class SettingsWindow():
                                            self.in_dict[key][sub_key] * 2,
                                            self.in_dict[key][sub_key])
           else:
-            tk.Label(self.root, text=f"{sub_key}".capitalize()).pack()
+            tk.Label(self.root, text=f"{sub_key}".capitalize(), font=("Helvetica", 14)).pack()
             self.boxes[key][sub_key] = {}
             for sub_sub_key in self.in_dict[key][sub_key].keys():
               if sub_sub_key not in ["networks", "nn_layer_sizes"]:
@@ -200,7 +200,7 @@ class SaveWindow():
     self.root.rowconfigure(4, weight=1)
 
     # --- CONTENT ---
-    self.lTitle = tk.ttk.Label(self.root, text = "Save File")  
+    self.lTitle = tk.ttk.Label(self.root, text = "Save File", font = ("Helvetica", 20))  
     self.lTitle.grid(column=1, row=1) 
 
     self.bSave = tk.ttk.Button(self.root, text = "Save", command = self.save_file)
