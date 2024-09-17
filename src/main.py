@@ -20,7 +20,7 @@ def main():
                                                                     (1 + eyes_size) * 4, 
                                                                     (1 + eyes_size) * 2, 
                                                                     9]
-        settings_window = SettingsWindow()
+        settings_window = SettingsWindow(load_dict)
         settings_window.run()
         if settings_window.start_simulation:
             simulation = Simulation(load_dict)

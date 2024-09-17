@@ -77,7 +77,7 @@ class LoadWindow():
     
 
 class SettingsWindow():
-  def __init__(self):
+  def __init__(self, load_dict):
     # --- SETUP ---
     # window
     self.root = tk.Tk()
@@ -115,9 +115,22 @@ class SettingsWindow():
 
     self.start_simulation = False
     # --- CONTENT ---
-    self.slider1 = Slider("Slider 1", self.content_frame, 0, 100)
+    self.sliders = {}
+    for key in load_dict.keys():
+      if type(load_dict[key]) is not dict:
+        self.sliders[key] = Slider(key, self.content_frame, 0, 100)
+      else:
+        self.sliders[key] = {}
+        for sub_key in load_dict[key].keys():
+          if type(load_dict[key][sub_key]) is not dict:
+            self.sliders[key][sub_key] = Slider(sub_key, self.content_frame, 0, 100)
+          else:
+            self.sliders[key][sub_key] = {}
+            for sub_sub_key in load_dict[key][sub_key].keys():
+              self.sliders[key][sub_key][sub_sub_key] = Slider(sub_sub_key, self.content_frame, 0, 100)
+
     self.bStart = tk.ttk.Button(self.content_frame, text = "Start", command = self.startSimulation)
-    self.bStart.pack()
+    self.bStart.pack(expand = True)
 
   def run(self):
     self.root.mainloop()
