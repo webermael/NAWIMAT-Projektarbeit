@@ -51,7 +51,7 @@ class Box:
     self.label = ttk.Label(self.frame, text=f"{value}:")
     self.label.grid(column=0, row=0, sticky='w')
 
-    self.frame.pack(expand=True, fill="x")
+    self.frame.pack(padx=5, pady=5)
 
 
 class LoadWindow():
@@ -102,78 +102,32 @@ class LoadWindow():
 class SettingsWindow():
   def __init__(self, load_dict):
     # --- SETUP ---
-    # window
     self.root = tk.Tk()
     self.root.title("Interface")
-    self.root.geometry("300x400")
-
-    # layout setup
-    self.main_frame = tk.Frame(self.root)
-    self.main_frame.pack(fill="both", expand=1)
-
-    self.scroll_frame = tk.Frame(self.main_frame)
-    self.scroll_frame.pack(fill="y", side="right")
-
-    self.canvas = tk.Canvas(self.main_frame)
-    self.canvas.pack(side="right", fill="both", expand=True)
-
-    # Scrollbar
-    self.scrollbar = tk.ttk.Scrollbar(
-        self.scroll_frame,
-        orient="vertical",
-        command=self.canvas.yview
-    )
-    self.scrollbar.pack(side="right", fill="y")
-
-    # canvas config
-    self.canvas.configure(yscrollcommand=self.scrollbar.set)
-    self.canvas.bind("<Configure>",
-                lambda e: self.canvas.config(scrollregion=self.canvas.bbox("all"))) 
-
-    # frame inside canvas
-    self.content_frame = tk.Frame(self.canvas)
-
-    # add window -> content gets displayed
-    self.canvas.create_window((0, 0), window=self.content_frame, anchor="nw")
+    self.root.geometry("")
 
     self.start_simulation = False
-    # --- CONTENT ---
-    # self.sliders = {}
-    # for key in load_dict.keys():
-    #   if type(load_dict[key]) is not dict:
-    #     self.sliders[key] = Slider(key, self.content_frame, 0, 100)
-    #   else:
-    #     self.sliders[key] = {}
-    #     for sub_key in load_dict[key].keys():
-    #       if type(load_dict[key][sub_key]) is not dict:
-    #         self.sliders[key][sub_key] = Slider(sub_key, self.content_frame, 0, 100)
-    #       else:
-    #         self.sliders[key][sub_key] = {}
-    #         for sub_sub_key in load_dict[key][sub_key].keys():
-    #           self.sliders[key][sub_key][sub_sub_key] = Slider(sub_sub_key, self.content_frame, 0, 100)
-
-    
     self.boxes = {}
-    tk.Label(self.content_frame, text="Settings").pack()
+    tk.Label(self.root, text="Settings").pack()
     for key in load_dict.keys():
       if type(load_dict[key]) is not dict:
         if key != "generation_counter":
-          self.boxes[key] = Box(key, self.content_frame, 0, 100, load_dict[key])
+          self.boxes[key] = Box(key, self.root, 0, 100, load_dict[key])
       else:
-        tk.Label(self.content_frame, text=f"{key}".capitalize()).pack()
+        tk.Label(self.root, text=f"{key}".capitalize()).pack()
         self.boxes[key] = {}
         for sub_key in load_dict[key].keys():
           if type(load_dict[key][sub_key]) is not dict:
-            self.boxes[key][sub_key] = Box(sub_key, self.content_frame, 0, 100, load_dict[key][sub_key])
+            self.boxes[key][sub_key] = Box(sub_key, self.root, 0, 100, load_dict[key][sub_key])
           else:
-            tk.Label(self.content_frame, text=f"{sub_key}".capitalize()).pack()
+            tk.Label(self.root, text=f"{sub_key}".capitalize()).pack()
             self.boxes[key][sub_key] = {}
             for sub_sub_key in load_dict[key][sub_key].keys():
               if sub_sub_key not in ["networks", "nn_layer_sizes"]:
                 if not (load_dict["generation_counter"] > 0 and sub_sub_key == "eyes_size"):
-                  self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.content_frame, 0, 100, load_dict[key][sub_key][sub_sub_key])
+                  self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.root, 0, 100, load_dict[key][sub_key][sub_sub_key])
   
-    self.bStart = tk.ttk.Button(self.content_frame, text = "Start", command = self.startSimulation)
+    self.bStart = tk.ttk.Button(self.root, text = "Start", command = self.startSimulation)
     self.bStart.pack(expand = True)
 
   def run(self):
