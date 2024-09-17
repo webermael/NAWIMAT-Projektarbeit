@@ -113,15 +113,20 @@ class SettingsWindow():
     # add window -> content gets displayed
     self.canvas.create_window((0, 0), window=self.content_frame, anchor="nw")
 
+    self.start_simulation = False
     # --- CONTENT ---
     self.slider1 = Slider("Slider 1", self.content_frame, 0, 100)
-    self.bStart = tk.ttk.Button(self.content_frame, text = "Start", command = self.simulation.evolve)
+    self.bStart = tk.ttk.Button(self.content_frame, text = "Start", command = self.startSimulation)
     self.bStart.pack()
 
   def run(self):
     self.root.mainloop()
 
+  def startSimulation(self):
+    self.root.destroy()
+    self.start_simulation = True
+
 
 class SaveWindow():
   def __init__(self):
-    
+    pass   

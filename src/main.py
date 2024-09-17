@@ -22,7 +22,9 @@ def main():
                                                                     9]
         settings_window = SettingsWindow()
         settings_window.run()
-        simulation = Simulation(load_dict)
+        if settings_window.start_simulation:
+            simulation = Simulation(load_dict)
+            simulation.evolve()
         dict = fm.sim_to_dict(load_dict, simulation)
         fm.save_dict("save.json", dict)
             
