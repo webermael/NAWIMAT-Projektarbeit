@@ -167,31 +167,46 @@ class SettingsWindow():
                       self.in_dict[key][sub_key][sub_sub_key] = float(self.boxes[key][sub_key][sub_sub_key].box.get())
                     case int():
                       self.in_dict[key][sub_key][sub_sub_key] = int(float(self.boxes[key][sub_key][sub_sub_key].box.get()))
-                    case other:
-                      print("Error L3")
-              case other:
-                print("Error L2")
-        case other:
-          print("Error L1")
     self.root.destroy()
     self.start_simulation = True
 
-  # def startSimulation(self):
-  #   for key in self.boxes.keys():
-  #     if type(self.in_dict[key]) is not dict:
-  #       self.in_dict[key] = self.to_number(self.boxes[key].box.get())
-  #       self.in_dict[key] = float(self.boxes[key].box.get()) if  
-  #     else:
-  #       for sub_key in self.boxes[key].keys():
-  #         if type(self.in_dict[key][sub_key]) is not dict:
-  #           self.in_dict[key][sub_key] = self.to_number(self.boxes[key][sub_key].box.get())
-  #         else:
-  #           for sub_sub_key in self.boxes[key][sub_key].keys():
-  #             self.in_dict[key][sub_key][sub_sub_key] = self.to_number(self.boxes[key][sub_key][sub_sub_key].box.get())
-  #   self.root.destroy()
-  #   self.start_simulation = True
-
-
 class SaveWindow():
   def __init__(self):
-    pass   
+    # --- WINDOW ---
+    self.root = tk.Tk()
+    self.root.title("Save")
+    self.root.geometry("300x400")
+    self.root.columnconfigure(0, weight=1)
+    self.root.columnconfigure(1, weight=3)
+    self.root.columnconfigure(2, weight=1)
+    self.root.rowconfigure(0, weight=1)
+    self.root.rowconfigure(1, weight=1)
+    self.root.rowconfigure(2, weight=1)
+    self.root.rowconfigure(3, weight=1)
+    self.root.rowconfigure(4, weight=1)
+
+    # --- CONTENT ---
+    self.lTitle = tk.ttk.Label(self.root, text = "Save File")  
+    self.lTitle.grid(column=1, row=1) 
+
+    self.bSave = tk.ttk.Button(self.root, text = "Save", command = self.save)
+    self.bSave.grid(column=1, row=2)
+
+    self.bRerun = tk.ttk.Button(self.root, text = "Rerun", command = self.rerun)
+    self.bRerun.grid(column=1, row=3)
+
+    self.save_file = ""
+
+
+  def run(self):
+    self.root.mainloop()
+
+  def save_file(self):
+    filetypes = [('JSON files', '*.json')]
+
+    self.loaded_file = filedialog.askopenfilename(
+        title='Open a file',
+        initialdir='~/',
+        filetypes=filetypes)
+    self.root.destroy()
+

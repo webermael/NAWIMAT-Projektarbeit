@@ -7,9 +7,6 @@ import os.path
 def main():
     fm = FileManager()
 
-    my_path = os.path.abspath(os.path.dirname(__file__))
-    path = os.path.join(my_path, "template.json")
-
     while True:
         # --- LOAD FILE ---
         load_window = LoadWindow()
