@@ -120,20 +120,32 @@ class SettingsWindow():
     for key in self.in_dict.keys():
       if type(self.in_dict[key]) is not dict:
         if key != "generation_counter":
-          self.boxes[key] = Box(key, self.root, 0, 100, self.in_dict[key])
+          self.boxes[key] = Box(key,
+                                self.root, 
+                                self.in_dict[key] / 2,
+                                self.in_dict[key] * 2,
+                                self.in_dict[key])
       else:
         tk.Label(self.root, text=f"{key}".capitalize()).pack()
         self.boxes[key] = {}
         for sub_key in self.in_dict[key].keys():
           if type(self.in_dict[key][sub_key]) is not dict:
-            self.boxes[key][sub_key] = Box(sub_key, self.root, 0, 100, self.in_dict[key][sub_key])
+            self.boxes[key][sub_key] = Box(sub_key,
+                                           self.root, 
+                                           self.in_dict[key][sub_key] / 2,
+                                           self.in_dict[key][sub_key] * 2,
+                                           self.in_dict[key][sub_key])
           else:
             tk.Label(self.root, text=f"{sub_key}".capitalize()).pack()
             self.boxes[key][sub_key] = {}
             for sub_sub_key in self.in_dict[key][sub_key].keys():
               if sub_sub_key not in ["networks", "nn_layer_sizes"]:
                 if not (self.in_dict["generation_counter"] > 0 and sub_sub_key == "eyes_size"):
-                  self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.root, 0, 100, self.in_dict[key][sub_key][sub_sub_key])
+                  self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key,
+                                                              self.root,
+                                                              self.in_dict[key][sub_key][sub_sub_key] / 2,
+                                                              self.in_dict[key][sub_key][sub_sub_key] * 2,
+                                                              self.in_dict[key][sub_key][sub_sub_key])
   
     self.bStart = tk.ttk.Button(self.root, text = "Start", command = self.startSimulation)
     self.bStart.pack(expand = True)
@@ -212,7 +224,6 @@ class SaveWindow():
         initialdir='~/',
         filetypes=filetypes)
     if self.save_file != "" and self.save_file != ():
-      print(self.save_file)
       self.saving = True
       self.root.destroy()
 
