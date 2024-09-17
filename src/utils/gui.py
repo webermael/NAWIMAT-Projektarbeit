@@ -38,12 +38,15 @@ class Box:
     self.frame.columnconfigure(0, weight=1)
     self.frame.columnconfigure(1, weight=1)
     self.current_value = tk.StringVar(value=startValue)
+    self.vcmd = (self.frame.register(self.validate), "%P")
     self.box = tk.ttk.Spinbox(
         self.frame,
         width=5,
         from_=scaleLow,
         to=scaleHigh,
         textvariable=self.current_value,
+        validate="focus",
+        validatecommand=self.vcmd,
         wrap=True
     )
     self.box.grid(column=1, row=0, sticky='e')
@@ -53,6 +56,8 @@ class Box:
 
     self.frame.pack(padx=5, pady=5)
 
+  def validate(self, input_value):
+    return input_value.isdigit()
 
 class LoadWindow():
   def __init__(self):
@@ -106,26 +111,27 @@ class SettingsWindow():
     self.root.title("Interface")
     self.root.geometry("")
 
+    self.in_dict = load_dict
     self.start_simulation = False
     self.boxes = {}
     tk.Label(self.root, text="Settings").pack()
-    for key in load_dict.keys():
-      if type(load_dict[key]) is not dict:
+    for key in self.in_dict.keys():
+      if type(self.in_dict[key]) is not dict:
         if key != "generation_counter":
-          self.boxes[key] = Box(key, self.root, 0, 100, load_dict[key])
+          self.boxes[key] = Box(key, self.root, 0, 100, self.in_dict[key])
       else:
         tk.Label(self.root, text=f"{key}".capitalize()).pack()
         self.boxes[key] = {}
-        for sub_key in load_dict[key].keys():
-          if type(load_dict[key][sub_key]) is not dict:
-            self.boxes[key][sub_key] = Box(sub_key, self.root, 0, 100, load_dict[key][sub_key])
+        for sub_key in self.in_dict[key].keys():
+          if type(self.in_dict[key][sub_key]) is not dict:
+            self.boxes[key][sub_key] = Box(sub_key, self.root, 0, 100, self.in_dict[key][sub_key])
           else:
             tk.Label(self.root, text=f"{sub_key}".capitalize()).pack()
             self.boxes[key][sub_key] = {}
-            for sub_sub_key in load_dict[key][sub_key].keys():
+            for sub_sub_key in self.in_dict[key][sub_key].keys():
               if sub_sub_key not in ["networks", "nn_layer_sizes"]:
-                if not (load_dict["generation_counter"] > 0 and sub_sub_key == "eyes_size"):
-                  self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.root, 0, 100, load_dict[key][sub_key][sub_sub_key])
+                if not (self.in_dict["generation_counter"] > 0 and sub_sub_key == "eyes_size"):
+                  self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.root, 0, 100, self.in_dict[key][sub_key][sub_sub_key])
   
     self.bStart = tk.ttk.Button(self.root, text = "Start", command = self.startSimulation)
     self.bStart.pack(expand = True)
@@ -133,7 +139,25 @@ class SettingsWindow():
   def run(self):
     self.root.mainloop()
 
+  def to_number(self, input_string):
+    num = float(input_string)
+    if num.is_integer():
+      return int(num)
+    else:
+      return num
+    
+
   def startSimulation(self):
+    for key in self.boxes.keys():
+      if type(self.in_dict[key]) is not dict:
+        self.in_dict[key] = self.to_number(self.boxes[key].box.get())
+      else:
+        for sub_key in self.boxes[key].keys():
+          if type(self.in_dict[key][sub_key]) is not dict:
+            self.in_dict[key][sub_key] = self.to_number(self.boxes[key][sub_key].box.get())
+          else:
+            for sub_sub_key in self.boxes[key][sub_key].keys():
+              self.in_dict[key][sub_key][sub_sub_key] = self.to_number(self.boxes[key][sub_key][sub_sub_key].box.get())
     self.root.destroy()
     self.start_simulation = True
 
