@@ -15,13 +15,13 @@ def main():
         load_window = LoadWindow()
         load_window.run()
         load_dict = fm.load_file(load_window.loaded_file)
+        settings_window = SettingsWindow(load_dict)
+        settings_window.run()
         eyes_size = load_dict["population"]["organisms"]["eyes_size"]
         load_dict["population"]["organisms"]["nn_layer_sizes"] = [2 * (eyes_size ** 2 + eyes_size) + 3, 
                                                                     (1 + eyes_size) * 4, 
                                                                     (1 + eyes_size) * 2, 
                                                                     9]
-        settings_window = SettingsWindow(load_dict)
-        settings_window.run()
         if settings_window.start_simulation:
             simulation = Simulation(load_dict)
             simulation.evolve()

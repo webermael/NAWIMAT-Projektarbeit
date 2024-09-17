@@ -40,17 +40,18 @@ class Box:
     self.current_value = tk.StringVar(value=startValue)
     self.box = tk.ttk.Spinbox(
         self.frame,
+        width=5,
         from_=scaleLow,
         to=scaleHigh,
         textvariable=self.current_value,
         wrap=True
     )
-    self.box.grid(column=1, row=0, sticky='we')
+    self.box.grid(column=1, row=0, sticky='e')
     
     self.label = ttk.Label(self.frame, text=f"{value}:")
     self.label.grid(column=0, row=0, sticky='w')
 
-    self.frame.pack(expand = True)
+    self.frame.pack(expand=True, fill="x")
 
 
 class LoadWindow():
@@ -114,7 +115,7 @@ class SettingsWindow():
     self.scroll_frame.pack(fill="y", side="right")
 
     self.canvas = tk.Canvas(self.main_frame)
-    self.canvas.pack(side="left", fill="both", expand=1)
+    self.canvas.pack(side="right", fill="both", expand=True)
 
     # Scrollbar
     self.scrollbar = tk.ttk.Scrollbar(
@@ -153,19 +154,25 @@ class SettingsWindow():
 
     
     self.boxes = {}
+    tk.Label(self.content_frame, text="Settings").pack()
     for key in load_dict.keys():
       if type(load_dict[key]) is not dict:
-        self.boxes[key] = Box(key, self.content_frame, 0, 100, 42)
+        if key != "generation_counter":
+          self.boxes[key] = Box(key, self.content_frame, 0, 100, load_dict[key])
       else:
+        tk.Label(self.content_frame, text=f"{key}".capitalize()).pack()
         self.boxes[key] = {}
         for sub_key in load_dict[key].keys():
           if type(load_dict[key][sub_key]) is not dict:
-            self.boxes[key][sub_key] = Box(sub_key, self.content_frame, 0, 100, 42)
+            self.boxes[key][sub_key] = Box(sub_key, self.content_frame, 0, 100, load_dict[key][sub_key])
           else:
+            tk.Label(self.content_frame, text=f"{sub_key}".capitalize()).pack()
             self.boxes[key][sub_key] = {}
             for sub_sub_key in load_dict[key][sub_key].keys():
-              self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.content_frame, 0, 100, 42)
-
+              if sub_sub_key not in ["networks", "nn_layer_sizes"]:
+                if not (load_dict["generation_counter"] > 0 and sub_sub_key == "eyes_size"):
+                  self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.content_frame, 0, 100, load_dict[key][sub_key][sub_sub_key])
+  
     self.bStart = tk.ttk.Button(self.content_frame, text = "Start", command = self.startSimulation)
     self.bStart.pack(expand = True)
 
