@@ -10,9 +10,9 @@
         "danger": 
         {
             "count": 100, 
-            "min_life": 15, 
-            "max_life": 27, 
-            "spread_chance": 100, 
+            "min_life": 19, 
+            "max_life": 20, 
+            "spread_chance": 0.085, 
             "damage": 20
         }, 
         "food": 

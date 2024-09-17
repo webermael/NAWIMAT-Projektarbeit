@@ -20,7 +20,7 @@ def main():
     simulation.evolve()
     
     dict = fm.sim_to_dict(load_dict, simulation)
-    fm.save_dict("save.json", dict)
+    fm.save_dict("save3.json", dict)
 
 if __name__ == "__main__":
     main()

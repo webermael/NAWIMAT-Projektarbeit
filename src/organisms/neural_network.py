@@ -10,11 +10,13 @@ class NeuralNetwork:
             else:
                 self.layers.append(Layer(layer_sizes[layer], layer_sizes[layer + 1])) # creates layer objects for all hidden layers and the output layer 
     
+
     def calc_output(self, inputs):
         for layer in self.layers:
             inputs = layer.calc_output(inputs)
         return inputs
 
+    # returns the index of the largest network output
     def calc_greatest(self, inputs):
         values = self.calc_output(inputs)
         return values.index(max(values))
