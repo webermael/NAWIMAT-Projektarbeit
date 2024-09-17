@@ -31,6 +31,28 @@ class Slider:
   def slider_changed(self, event):
       self.value_label.configure(text=self.get_current_value())
 
+
+class Box:
+  def __init__(self, value, root, scaleLow, scaleHigh, startValue):
+    self.frame = tk.Frame(root)
+    self.frame.columnconfigure(0, weight=1)
+    self.frame.columnconfigure(1, weight=1)
+    self.current_value = tk.StringVar(value=startValue)
+    self.box = tk.ttk.Spinbox(
+        self.frame,
+        from_=scaleLow,
+        to=scaleHigh,
+        textvariable=self.current_value,
+        wrap=True
+    )
+    self.box.grid(column=1, row=0, sticky='we')
+    
+    self.label = ttk.Label(self.frame, text=f"{value}:")
+    self.label.grid(column=0, row=0, sticky='w')
+
+    self.frame.pack(expand = True)
+
+
 class LoadWindow():
   def __init__(self):
     # --- SETUP ---
@@ -115,19 +137,34 @@ class SettingsWindow():
 
     self.start_simulation = False
     # --- CONTENT ---
-    self.sliders = {}
+    # self.sliders = {}
+    # for key in load_dict.keys():
+    #   if type(load_dict[key]) is not dict:
+    #     self.sliders[key] = Slider(key, self.content_frame, 0, 100)
+    #   else:
+    #     self.sliders[key] = {}
+    #     for sub_key in load_dict[key].keys():
+    #       if type(load_dict[key][sub_key]) is not dict:
+    #         self.sliders[key][sub_key] = Slider(sub_key, self.content_frame, 0, 100)
+    #       else:
+    #         self.sliders[key][sub_key] = {}
+    #         for sub_sub_key in load_dict[key][sub_key].keys():
+    #           self.sliders[key][sub_key][sub_sub_key] = Slider(sub_sub_key, self.content_frame, 0, 100)
+
+    
+    self.boxes = {}
     for key in load_dict.keys():
       if type(load_dict[key]) is not dict:
-        self.sliders[key] = Slider(key, self.content_frame, 0, 100)
+        self.boxes[key] = Box(key, self.content_frame, 0, 100, 42)
       else:
-        self.sliders[key] = {}
+        self.boxes[key] = {}
         for sub_key in load_dict[key].keys():
           if type(load_dict[key][sub_key]) is not dict:
-            self.sliders[key][sub_key] = Slider(sub_key, self.content_frame, 0, 100)
+            self.boxes[key][sub_key] = Box(sub_key, self.content_frame, 0, 100, 42)
           else:
-            self.sliders[key][sub_key] = {}
+            self.boxes[key][sub_key] = {}
             for sub_sub_key in load_dict[key][sub_key].keys():
-              self.sliders[key][sub_key][sub_sub_key] = Slider(sub_sub_key, self.content_frame, 0, 100)
+              self.boxes[key][sub_key][sub_sub_key] = Box(sub_sub_key, self.content_frame, 0, 100, 42)
 
     self.bStart = tk.ttk.Button(self.content_frame, text = "Start", command = self.startSimulation)
     self.bStart.pack(expand = True)
