@@ -45,7 +45,7 @@ class Box:
         from_=scaleLow,
         to=scaleHigh,
         textvariable=self.current_value,
-        validate="focus",
+        validate="key",
         validatecommand=self.vcmd,
         wrap=True
     )
@@ -57,7 +57,7 @@ class Box:
     self.frame.pack(padx=5, pady=5)
 
   def validate(self, input_value):
-    return input_value.isdigit()
+    return input_value.count(".") in [0, 1] and input_value.replace(".", "").isdigit()
 
 class LoadWindow():
   def __init__(self):
@@ -145,21 +145,51 @@ class SettingsWindow():
       return int(num)
     else:
       return num
-    
 
-  def startSimulation(self):
+  def startSimulation(self):  
     for key in self.boxes.keys():
-      if type(self.in_dict[key]) is not dict:
-        self.in_dict[key] = self.to_number(self.boxes[key].box.get())
-      else:
-        for sub_key in self.boxes[key].keys():
-          if type(self.in_dict[key][sub_key]) is not dict:
-            self.in_dict[key][sub_key] = self.to_number(self.boxes[key][sub_key].box.get())
-          else:
-            for sub_sub_key in self.boxes[key][sub_key].keys():
-              self.in_dict[key][sub_key][sub_sub_key] = self.to_number(self.boxes[key][sub_key][sub_sub_key].box.get())
+      match self.in_dict[key]:
+        case float():
+          self.in_dict[key] = float(self.boxes[key].box.get())
+        case int():
+          self.in_dict[key] = int(float(self.boxes[key].box.get()))
+        case dict():
+          for sub_key in self.boxes[key].keys():
+            match self.in_dict[key][sub_key]:
+              case float():
+                self.in_dict[key][sub_key] = float(self.boxes[key][sub_key].box.get())
+              case int():
+                self.in_dict[key][sub_key] = int(float(self.boxes[key][sub_key].box.get()))
+              case dict():
+                for sub_sub_key in self.boxes[key][sub_key].keys():
+                  match self.in_dict[key][sub_key][sub_sub_key]:
+                    case float():
+                      self.in_dict[key][sub_key][sub_sub_key] = float(self.boxes[key][sub_key][sub_sub_key].box.get())
+                    case int():
+                      self.in_dict[key][sub_key][sub_sub_key] = int(float(self.boxes[key][sub_key][sub_sub_key].box.get()))
+                    case other:
+                      print("Error L3")
+              case other:
+                print("Error L2")
+        case other:
+          print("Error L1")
     self.root.destroy()
     self.start_simulation = True
+
+  # def startSimulation(self):
+  #   for key in self.boxes.keys():
+  #     if type(self.in_dict[key]) is not dict:
+  #       self.in_dict[key] = self.to_number(self.boxes[key].box.get())
+  #       self.in_dict[key] = float(self.boxes[key].box.get()) if  
+  #     else:
+  #       for sub_key in self.boxes[key].keys():
+  #         if type(self.in_dict[key][sub_key]) is not dict:
+  #           self.in_dict[key][sub_key] = self.to_number(self.boxes[key][sub_key].box.get())
+  #         else:
+  #           for sub_sub_key in self.boxes[key][sub_key].keys():
+  #             self.in_dict[key][sub_key][sub_sub_key] = self.to_number(self.boxes[key][sub_key][sub_sub_key].box.get())
+  #   self.root.destroy()
+  #   self.start_simulation = True
 
 
 class SaveWindow():
