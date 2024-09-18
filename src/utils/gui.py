@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
+import numpy
 from utils.interface_values import interface_values
 
 class Slider:
@@ -34,7 +35,7 @@ class Slider:
 
 
 class Box:
-  def __init__(self, value, root, scaleLow, scaleHigh, startValue):
+  def __init__(self, value, root, range_from, range_to, range_step, startValue):
     self.frame = tk.Frame(root)
     self.frame.columnconfigure(0, weight=1)
     self.frame.columnconfigure(1, weight=1)
@@ -43,8 +44,9 @@ class Box:
     self.box = tk.ttk.Spinbox(
         self.frame,
         width=5,
-        from_=scaleLow,
-        to=scaleHigh,
+        from_=range_from,
+        to=range_to,
+        values=list(numpy.arange(range_from, range_to, range_step)),
         textvariable=self.current_value,
         validate="key",
         validatecommand=self.vcmd,
@@ -123,8 +125,9 @@ class SettingsWindow():
         if key != "generation_counter":
           self.boxes[key] = Box(interface_values[key][0],
                                 self.root, 
-                                0,
                                 interface_values[key][1],
+                                interface_values[key][2],
+                                interface_values[key][3],
                                 self.in_dict[key])
       else:
         tk.Label(self.root, text=f"{key}".capitalize(), font=("Helvetica", 16)).pack()
@@ -133,8 +136,9 @@ class SettingsWindow():
           if type(self.in_dict[key][sub_key]) is not dict:
             self.boxes[key][sub_key] = Box(interface_values[key][sub_key][0],
                                            self.root, 
-                                           0,
                                            interface_values[key][sub_key][1],
+                                           interface_values[key][sub_key][2],
+                                           interface_values[key][sub_key][3],
                                            self.in_dict[key][sub_key])
           else:
             tk.Label(self.root, text=f"{sub_key}".capitalize(), font=("Helvetica", 14)).pack()
@@ -144,8 +148,9 @@ class SettingsWindow():
                 if not (self.in_dict["generation_counter"] > 0 and sub_sub_key == "eyes_size"):
                   self.boxes[key][sub_key][sub_sub_key] = Box(interface_values[key][sub_key][sub_sub_key][0],
                                                               self.root,
-                                                              0,
                                                               interface_values[key][sub_key][sub_sub_key][1],
+                                                              interface_values[key][sub_key][sub_sub_key][2],
+                                                              interface_values[key][sub_key][sub_sub_key][3],
                                                               self.in_dict[key][sub_key][sub_sub_key])
   
     self.bStart = tk.ttk.Button(self.root, text = "Start", command = self.startSimulation)
