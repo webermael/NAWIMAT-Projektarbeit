@@ -52,12 +52,12 @@ class Box:
         validatecommand=self.vcmd,
         wrap=True
     )
-    self.box.grid(column=1, row=0, sticky='e')
+    self.box.grid(column=1, row=0, sticky='e', padx=50)
     
     self.label = ttk.Label(self.frame, text=f"{value}:")
-    self.label.grid(column=0, row=0, sticky='w')
+    self.label.grid(column=0, row=0, sticky='w', padx=50)
 
-    self.frame.pack(padx=5, pady=5, fill="x")
+    self.frame.pack(padx=5, pady=2, fill="x")
 
   def validate(self, input_value):
     return input_value.count(".") in [0, 1] and input_value.replace(".", "").isdigit()
@@ -119,7 +119,7 @@ class SettingsWindow():
     self.in_dict = load_dict
     self.start_simulation = False
     self.boxes = {}
-    tk.Label(self.root, text="Settings", font=("Helvetica", 20)).pack()
+    tk.Label(self.root, text="Settings", font=("Helvetica", 20), pady=20).pack()
     for key in self.in_dict.keys():
       if type(self.in_dict[key]) is not dict:
         if key != "generation_counter":
@@ -154,7 +154,7 @@ class SettingsWindow():
                                                               self.in_dict[key][sub_key][sub_sub_key])
   
     self.bStart = tk.ttk.Button(self.root, text = "Start", command = self.startSimulation)
-    self.bStart.pack(expand = True)
+    self.bStart.pack(expand = True, pady=20)
 
   def run(self):
     self.root.mainloop()
