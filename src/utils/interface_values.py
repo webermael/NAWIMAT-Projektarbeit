@@ -1,4 +1,4 @@
-{
+interface_values = {
     "world": 
     {
         "size": 
@@ -46,5 +46,5 @@
     }, 
     "generation_counter": ["Generations", 0],
     "generation_duration": ["Generation duration", 350],
-    "tickspeed": ["tickspeed", 180]
+    "tickspeed": ["Tickspeed", 180]
 }
