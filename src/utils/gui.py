@@ -45,7 +45,7 @@ class Box:
         width=5,
         from_=range_from,
         to=range_to,
-        values=list([round(x * range_step, 2) for x in range(int(range_from / range_step), int(range_to / range_step) + 1)]),
+        values=[round(x * range_step, 2) for x in range(int(range_from / range_step), int(range_to / range_step) + 1)],
         textvariable=self.current_value,
         validate="key",
         validatecommand=self.vcmd,
