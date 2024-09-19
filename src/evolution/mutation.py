@@ -1,4 +1,5 @@
 import random
+
 def mutation(inputs, value):
     # has a chance to slightly change the input value
     if random.random() <= inputs["probability"]:

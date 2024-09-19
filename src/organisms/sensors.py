@@ -1,4 +1,8 @@
 class Eyes:
+    '''
+    used to create a list of the environment
+    translates tile contents into numbers for network inputs
+    '''
     def __init__(self, size):
         self.size = size
         self.translation = {"danger" : -1, "empty" : 0, "food" : 1}

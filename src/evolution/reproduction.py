@@ -1,6 +1,5 @@
 from random import random
 from evolution.mutation import mutation
-
  
 def reproduction(inputs, nn1, nn2):
     # creates a list with weights/biases which are copied from parents
