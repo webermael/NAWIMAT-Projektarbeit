@@ -106,7 +106,6 @@ class SettingsWindow():
     tk.Label(self.root, text="Settings", font=("Helvetica", 20), pady=20).pack()
     for key in self.in_dict.keys():
       if key == "population":
-        print("Population frame switch")
         self.frame_switch = True
       if type(self.in_dict[key]) is not dict:
         if key != "generation_counter":

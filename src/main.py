@@ -35,6 +35,7 @@ def main():
                 # --- SIMULATION ---
                 simulation = Simulation(load_dict)
                 simulation.evolve()
+                dict = fm.sim_to_dict(load_dict, simulation)
 
             # --- SAVING ---
             save_window = SaveWindow()
@@ -44,7 +45,6 @@ def main():
                 running = False
                 break
             elif save_window.saving:
-                dict = fm.sim_to_dict(load_dict, simulation)
                 fm.save_dict(save_window.save_file, dict)
             elif save_window.keeping:
                 same_file = True
