@@ -224,7 +224,7 @@ class SaveWindow():
   def save_file(self):
     filetypes = [('JSON files', '*.json')]
 
-    self.save_file = filedialog.askopenfilename(
+    self.save_file = filedialog.asksaveasfilename(
         title='Choose a file',
         initialdir='~/',
         filetypes=filetypes)
