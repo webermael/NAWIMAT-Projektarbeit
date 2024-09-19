@@ -13,6 +13,7 @@ class Simulation():
         self.generation_duration = input_dict["generation_duration"]
         self.world = World(self.inputs["world"])
         self.population = Population(input_dict["population"], self.inputs["world"]["size"])
+        self.screen = screen_init(self.inputs["world"]["size"])
         self.running = False
         self.generation_counter = input_dict["generation_counter"]
 
@@ -97,14 +98,13 @@ class Simulation():
         stats = self.stats()
         print("Average Score:", stats[0],f"\nSurvival Rate: {stats[1]}%")
         self.generation_duration = self.inputs["generation_duration"]
-        self.world = World(self.inputs["world"])
         if self.running:
+            self.world = World(self.inputs["world"])
             self.population = self.new_gen()
 
     
     def evolve(self):
         pygame.init()
-        self.screen = screen_init(self.inputs["world"]["size"])
         self.running = True
         while self.running:
             self.generation_counter += 1
