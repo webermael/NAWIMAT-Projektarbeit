@@ -44,7 +44,8 @@
             "border_damage": 100,
             "move_bonus": 0.01,
             "survivor_bonus": 500
-    }, 
+        }
+    },
     "generation_counter": 0, 
     "generation_duration": 350,
     "tickspeed": 180
