@@ -206,6 +206,7 @@ class SaveWindow():
     self.root.rowconfigure(3, weight=1)
     self.root.rowconfigure(4, weight=1)
     self.root.rowconfigure(5, weight=1)
+    self.root.rowconfigure(6, weight=1)
 
     # --- CONTENT ---
     self.lTitle = tk.ttk.Label(self.root, text = "Save File", font = ("Helvetica", 20))  
@@ -214,14 +215,19 @@ class SaveWindow():
     self.bSave = tk.ttk.Button(self.root, text = "Save", command = self.save_file)
     self.bSave.grid(column=1, row=2)
 
-    self.bRerun = tk.ttk.Button(self.root, text = "Rerun", command = self.rerun)
-    self.bRerun.grid(column=1, row=3)
+    self.bSettings = tk.ttk.Button(self.root, text = "Settings", command = self.settings)
+    self.bSettings.grid(column=1, row=3)
+
+    self.bLoad = tk.ttk.Button(self.root, text = "Load new File", command = self.load)
+    self.bLoad.grid(column=1, row=4)
 
     self.bQuit = tk.ttk.Button(self.root, text = "Quit", command = self.quit)
-    self.bQuit.grid(column=1, row=4)
+    self.bQuit.grid(column=1, row=5)
 
     self.save_file = ""
+    self.keeping = False
     self.saving = False
+    self.loading = False
     self.pressed_quit = False
 
 
@@ -239,8 +245,12 @@ class SaveWindow():
       self.saving = True
       self.root.destroy()
 
-  def rerun(self):
-    self.saving = False
+  def settings(self):
+    self.keeping = True
+    self.root.destroy()
+
+  def load(self):
+    self.loading = True
     self.root.destroy()
 
   def quit(self):
