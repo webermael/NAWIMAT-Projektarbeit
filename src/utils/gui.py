@@ -6,6 +6,10 @@ import os.path
 
 
 class Box:
+  '''
+  Creates a frame to manually type numbers for each simulation parameter
+  Also has arrow buttons which increment the value in steps and with limits given by interface_values.py
+  '''
   def __init__(self, value, root, range_from, range_to, range_step, startValue):
     self.frame = tk.Frame(root)
     self.frame.columnconfigure(0, weight=1)
@@ -34,6 +38,9 @@ class Box:
     return input_value.count(".") in [0, 1] and input_value.replace(".", "").isdigit()
 
 class LoadWindow():
+  '''
+  Asks wether to use the template file or an existing save file as input
+  '''
   def __init__(self):
     # --- SETUP ---
     self.root = tk.Tk()
@@ -69,11 +76,13 @@ class LoadWindow():
   def run(self):
     self.root.mainloop()
 
+  # loads template.json path
   def template(self):
     local_path = os.path.abspath(os.path.dirname(__file__))
     self.loaded_file = os.path.join(local_path, "template.json")
     self.root.destroy()
-    
+  
+  # opens file manager for selecting save files
   def load_file(self):
     filetypes = [('JSON files', '*.json')]
 
@@ -85,12 +94,17 @@ class LoadWindow():
     if self.loaded_file != "" and self.loaded_file != ():
       self.root.destroy()
 
+
   def quit(self):
     self.pressed_quit = True
     self.root.destroy()
     
 
 class SettingsWindow():
+  '''
+  Loads a Box for every parameter of a simulation 
+  Pulls start values of the boxes from the loaded file
+  '''
   def __init__(self, load_dict):
     # --- SETUP ---
     self.root = tk.Tk()
@@ -104,6 +118,8 @@ class SettingsWindow():
     self.start_simulation = False
     self.boxes = {}
     tk.Label(self.root, text="Settings", font=("Helvetica", 20), pady=20).pack()
+    # loops through input dictionary to display contents in the same manner as in the dictionary
+    # exceptions are values that if changed would become problematic or confusing 
     for key in self.in_dict.keys():
       if key == "population":
         self.frame_switch = True
@@ -156,14 +172,8 @@ class SettingsWindow():
 
   def run(self):
     self.root.mainloop()
-
-  def to_number(self, input_string):
-    num = float(input_string)
-    if num.is_integer():
-      return int(num)
-    else:
-      return num
-
+  
+  # sets every value of the dictionary to the value of the corresponding input box
   def startSimulation(self):  
     for key in self.boxes.keys():
       match self.in_dict[key]:
@@ -194,6 +204,11 @@ class SettingsWindow():
 
   
 class SaveWindow():
+  '''
+  Asks wether to save a file which will open file manager for selecting a directory
+  Or to modify the outputs of the last generation and run a new simulation
+  Or to not save the last generation but open a new file
+  '''
   def __init__(self):
     # --- WINDOW ---
     self.root = tk.Tk()

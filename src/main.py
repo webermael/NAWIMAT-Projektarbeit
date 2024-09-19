@@ -23,6 +23,7 @@ def main():
             if settings_window.pressed_quit:
                 running = False
                 break
+            # calculates network layers based on eyes_size
             eyes_size = load_dict["population"]["organisms"]["eyes_size"]
             load_dict["population"]["organisms"]["nn_layer_sizes"] = [2 * (eyes_size ** 2 + eyes_size) + 3, 
                                                                         (1 + eyes_size) * 4, 
@@ -45,8 +46,6 @@ def main():
             elif save_window.keeping:
                 same_file = True
 
-            
-            
 
 if __name__ == "__main__":
     main()

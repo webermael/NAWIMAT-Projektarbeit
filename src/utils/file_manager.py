@@ -1,6 +1,10 @@
 import json
 
 class FileManager:
+    '''
+    used to load from and to json files
+    updates save data of a given dictionary with data from a simulation
+    '''
     def __init__(self):
         pass
 

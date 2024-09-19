@@ -2,6 +2,10 @@ from organisms.layer import Layer
 
 
 class NeuralNetwork:
+    '''
+    creates a neural network for organisms
+    can calulate an output when given the right amount of inputs
+    '''
     def __init__(self, layer_sizes : list[int], weights = False, biases = False):
         self.layers = []
         for layer in range(len(layer_sizes) - 1):

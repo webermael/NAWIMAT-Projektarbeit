@@ -6,8 +6,12 @@ from organisms.organism import Organism
 from evolution.reproduction import reproduction
 from utils.visualisation import screen_init, screen_update
 
-
 class Simulation():
+    '''
+    generates world and population
+    runs multiple generations
+    uses selection based on score to generate new organisms/networks
+    '''
     def __init__(self, input_dict):
         self.inputs = input_dict
         self.generation_duration = input_dict["general"]["generation_duration"]
@@ -30,7 +34,6 @@ class Simulation():
             self.world.draw(self.inputs["world"]["size"]["tile_width"], self.screen)
             self.population.update(self.inputs, self.world.grid)
             self.population.draw(self.inputs["world"]["size"]["tile_width"], self.screen)
-            # drawing everything
 
             screen_update()
             self.generation_duration -= 1
@@ -53,7 +56,7 @@ class Simulation():
             for organism in self.population.organisms:
                 organism.score = organism.score / total # divides all scores so they all add up to 1
 
-    # selects organisms fit for reproduction
+    # selects organisms fit for reproduction, a higher score gets a better chance to be selected
     def selection(self, organisms):
         start = random.random()
         index = 0
@@ -61,15 +64,6 @@ class Simulation():
             start -= organisms[index].score 
             index += 1
         return organisms[index - 1].nn
-
-    '''
-    The selection function picks a random number from 0 to 1, the score of every organism combined is 1 after being normalized by the noramlize score function
-    If the start value was 1, you could subtract every score and the last organism in the list, would finally bring it to 0
-    This way, any score, that is higher than another gets a bigger chance of being selected:
-    Imagine one organism having a score of 0.9 (out of 1), so the rest of the organisms would all add up to 0.1
-    If the starting value is lower than 0.9, this organism would always be selected, 
-    as the other ones could only bring the value down to 0.8 and the strong organism would always get it to 0 or lower
-    '''
 
     # creates a fresh population for the next generation
     def new_gen(self):
@@ -95,7 +89,7 @@ class Simulation():
                 survival_rate += (1 / len(self.population.organisms)) * 100
         print(f"Average Score: {round(avg_score, 2)}", f"\nSurvival Rate: {round(survival_rate, 2)}%")
 
-    # resets all variables necessary for a new generation and print
+    # resets all variables necessary for a new generation and prints stats
     def reset(self):
         self.score_calculation()
         self.stats()

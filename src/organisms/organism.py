@@ -5,6 +5,12 @@ from world.environment import Empty
 import pygame
 
 class Organism:
+    '''
+    gets put into a world
+    perceives environment through "Eyes"
+    uses environment as inputs for its network
+    uses network output to choose movement direction
+    '''
     def __init__(self, inputs, x_pos, y_pos, brain_data = False):
         self.position = Position(x_pos, y_pos)
         self.lifetime = inputs["start_life"] # how long the organism will live

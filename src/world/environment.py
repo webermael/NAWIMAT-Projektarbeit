@@ -4,6 +4,10 @@ import pygame
 
 
 class Food(Tile):
+  '''
+  gives organisms more lifetime
+  places another food tile in a random position within a timeframe
+  '''
   def __init__(self, inputs, x_pos, y_pos):
     Tile.__init__(self, x_pos, y_pos, "food")
     self.spread_timer = randint(inputs["food"]["min_spread"], inputs["food"]["max_spread"])
@@ -19,13 +23,18 @@ class Food(Tile):
       y = randint(0, inputs["size"]["column_length"] - 1)
       if world[y][x].content == "empty":
         world[y][x] = Food(inputs, x, y)
-      # sets a random timer for when the next food will be spread
+      # sets a random timer for when the next food will be placed
       self.spread_timer = randint(inputs["food"]["min_spread"], inputs["food"]["max_spread"])
     else:
       self.spread_timer -= 1
 
 
 class Danger(Tile):
+  '''
+  reduces organisms lifetime
+  has a chance to turn an adjacent file into another danger tile
+  gets replaced by empty tile after lifetime depletes
+  '''
   def __init__(self, inputs, x_pos, y_pos):
     Tile.__init__(self, x_pos, y_pos, "danger")
     self.green_value = randint(17, 140)
@@ -57,6 +66,10 @@ class Danger(Tile):
 
 
 class Empty(Tile):
+  '''
+  standard tile
+  no functionality
+  '''
   def __init__(self, x_pos, y_pos):
     Tile.__init__(self, x_pos, y_pos, "empty")
     

@@ -2,6 +2,11 @@ from organisms.organism import Organism
 from random import randint
 
 class Population:
+    '''
+    creates a population of organisms
+    creates their networks randomly or takes them from a save file
+    used to update and draw all organisms
+    '''
     def __init__(self, inputs, world_sizes, coords_only = False):
         self.organisms = []
         self.organism_coords = []
