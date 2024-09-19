@@ -47,6 +47,7 @@ class LoadWindow():
     self.root.rowconfigure(2, weight=1)
     self.root.rowconfigure(3, weight=1)
     self.root.rowconfigure(4, weight=1)
+    self.root.rowconfigure(5, weight=1)
 
     # --- CONTENT ---
     self.lTitle = tk.ttk.Label(self.root, text = "Load File", font = ("Helvetica", 20))  
@@ -58,7 +59,11 @@ class LoadWindow():
     self.bLoadFile = tk.ttk.Button(self.root, text = "Choose File", command = self.load_file)
     self.bLoadFile.grid(column=1, row=3)
 
+    self.bQuit = tk.ttk.Button(self.root, text = "Quit", command = self.quit)
+    self.bQuit.grid(column=1, row=4)
+
     self.loaded_file = ""
+    self.pressed_quit = False
 
 
   def run(self):
@@ -79,6 +84,10 @@ class LoadWindow():
 
     if self.loaded_file != "" and self.loaded_file != ():
       self.root.destroy()
+
+  def quit(self):
+    self.pressed_quit = True
+    self.root.destroy()
     
 
 class SettingsWindow():
@@ -126,7 +135,12 @@ class SettingsWindow():
                                                               self.in_dict[key][sub_key][sub_sub_key])
   
     self.bStart = tk.ttk.Button(self.root, text = "Start", command = self.startSimulation)
-    self.bStart.pack(expand = True, pady=20)
+    self.bStart.pack(side = "left", expand = True, pady=20)
+
+    self.bQuit = tk.ttk.Button(self.root, text = "Quit", command = self.quit)
+    self.bQuit.pack(side = "right", expand = True, pady=20)
+
+    self.pressed_quit = False
 
   def run(self):
     self.root.mainloop()
@@ -162,6 +176,11 @@ class SettingsWindow():
     self.root.destroy()
     self.start_simulation = True
 
+  def quit(self):
+    self.pressed_quit = True
+    self.root.destroy()
+
+  
 class SaveWindow():
   def __init__(self):
     # --- WINDOW ---
@@ -176,6 +195,7 @@ class SaveWindow():
     self.root.rowconfigure(2, weight=1)
     self.root.rowconfigure(3, weight=1)
     self.root.rowconfigure(4, weight=1)
+    self.root.rowconfigure(5, weight=1)
 
     # --- CONTENT ---
     self.lTitle = tk.ttk.Label(self.root, text = "Save File", font = ("Helvetica", 20))  
@@ -187,8 +207,12 @@ class SaveWindow():
     self.bRerun = tk.ttk.Button(self.root, text = "Rerun", command = self.rerun)
     self.bRerun.grid(column=1, row=3)
 
+    self.bQuit = tk.ttk.Button(self.root, text = "Quit", command = self.quit)
+    self.bQuit.grid(column=1, row=4)
+
     self.save_file = ""
     self.saving = False
+    self.pressed_quit = False
 
 
   def run(self):
@@ -207,4 +231,8 @@ class SaveWindow():
 
   def rerun(self):
     self.saving = False
+    self.root.destroy()
+
+  def quit(self):
+    self.pressed_quit = True
     self.root.destroy()
