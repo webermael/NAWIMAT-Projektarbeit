@@ -10,17 +10,17 @@ interface_values = {
         "danger": 
         {
             "count": ["Amount", 0, 2000, 100],
-            "min_life": ["Minimal burning time", 0, 50, 1],
-            "max_life": ["Maximal burning time", 0, 100, 1],
+            "min_life": ["Minimal burning time", 0, 100, 5],
+            "max_life": ["Maximal burning time", 0, 200, 5],
             "spread_chance": ["Chance to spread (per tick)", 0, 1, 0.01],
-            "damage": ["Damage", 0, 100, 5]
+            "damage": ["Damage", 0, 500, 10]
         }, 
         "food":
         {
             "count": ["Amount", 0, 2000, 100],
-            "min_spread": ["Minimal time to spread", 0, 50, 1],
-            "max_spread": ["Maximal time to spread", 0, 100, 1],
-            "lifetime_bonus": ["Nutrition value", 0, 100, 5]
+            "min_spread": ["Minimal time to spread", 0, 100, 5],
+            "max_spread": ["Maximal time to spread", 0, 200, 5],
+            "lifetime_bonus": ["Nutrition value", 0, 500, 10]
         }
     }, 
     "population":
@@ -37,7 +37,7 @@ interface_values = {
         }, 
         "interactions":
         {
-            "border_damage": ["Border damage", 0, 100, 1],
+            "border_damage": ["Border damage", 0, 1000, 10],
             "move_bonus": ["Points for moving", 0, 10, 0.1],
             "survivor_bonus": ["Points for surviving", 0, 1000, 100],
         }, 
@@ -45,7 +45,7 @@ interface_values = {
     },
     "general": 
     {
-    "generation_duration": ["Generation duration", 0, 1000, 100],
-    "tickspeed": ["Tickspeedcap (0: uncapped)", 0, 180, 1]
+    "generation_duration": ["Generation duration", 0, 2000, 100],
+    "tickspeed": ["Tickspeedcap (0: uncapped)", 0, 180, 30]
     },
 }

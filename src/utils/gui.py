@@ -35,7 +35,7 @@ class Box:
     self.frame.pack(padx=5, pady=2, fill="x")
 
   def validate(self, input_value):
-    return input_value.count(".") in [0, 1] and input_value.replace(".", "").isdigit()
+    return input_value.count(".") in [0, 1] and input_value.replace(".", "").isdigit() or input_value == ""
 
 class LoadWindow():
   '''
@@ -178,23 +178,28 @@ class SettingsWindow():
     for key in self.boxes.keys():
       match self.in_dict[key]:
         case float():
-          self.in_dict[key] = float(self.boxes[key].box.get())
+          if self.boxes[key].box.get() != "":
+            self.in_dict[key] = float(self.boxes[key].box.get())
         case int():
-          self.in_dict[key] = int(float(self.boxes[key].box.get()))
+          if self.boxes[key].box.get() != "":
+            self.in_dict[key] = int(float(self.boxes[key].box.get()))
         case dict():
           for sub_key in self.boxes[key].keys():
             match self.in_dict[key][sub_key]:
               case float():
-                self.in_dict[key][sub_key] = float(self.boxes[key][sub_key].box.get())
+                if self.boxes[key][sub_key].box.get() != "":
+                  self.in_dict[key][sub_key] = float(self.boxes[key][sub_key].box.get())
               case int():
-                self.in_dict[key][sub_key] = int(float(self.boxes[key][sub_key].box.get()))
+                if self.boxes[key][sub_key].box.get() != "":
+                  self.in_dict[key][sub_key] = int(float(self.boxes[key][sub_key].box.get()))
               case dict():
                 for sub_sub_key in self.boxes[key][sub_key].keys():
-                  match self.in_dict[key][sub_key][sub_sub_key]:
-                    case float():
-                      self.in_dict[key][sub_key][sub_sub_key] = float(self.boxes[key][sub_key][sub_sub_key].box.get())
-                    case int():
-                      self.in_dict[key][sub_key][sub_sub_key] = int(float(self.boxes[key][sub_key][sub_sub_key].box.get()))
+                  if self.boxes[key][sub_key][sub_sub_key].box.get() != "":
+                    match self.in_dict[key][sub_key][sub_sub_key]:
+                      case float():
+                        self.in_dict[key][sub_key][sub_sub_key] = float(self.boxes[key][sub_key][sub_sub_key].box.get())
+                      case int():
+                        self.in_dict[key][sub_key][sub_sub_key] = int(float(self.boxes[key][sub_key][sub_sub_key].box.get()))
     self.root.destroy()
     self.start_simulation = True
 
