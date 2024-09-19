@@ -1,7 +1,5 @@
 from simulation import Simulation
-from utils.gui import LoadWindow
-from utils.gui import SettingsWindow
-from utils.gui import SaveWindow
+from utils.gui import LoadWindow, SettingsWindow, SaveWindow
 from utils.file_manager import FileManager
 
 def main():
