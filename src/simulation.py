@@ -10,7 +10,7 @@ from utils.visualisation import screen_init, screen_update
 class Simulation():
     def __init__(self, input_dict):
         self.inputs = input_dict
-        self.generation_duration = input_dict["generation_duration"]
+        self.generation_duration = input_dict["general"]["generation_duration"]
         self.world = World(self.inputs["world"])
         self.population = Population(input_dict["population"], self.inputs["world"]["size"])
         self.screen = screen_init(self.inputs["world"]["size"])
@@ -35,7 +35,7 @@ class Simulation():
             screen_update()
             self.generation_duration -= 1
             # limits the framerate
-            pygame.time.Clock().tick(self.inputs["tickspeed"])
+            pygame.time.Clock().tick(self.inputs["general"]["tickspeed"])
 
     # adds up all the score bonuses of all organisms
     def score_calculation(self):
@@ -99,7 +99,7 @@ class Simulation():
     def reset(self):
         self.score_calculation()
         self.stats()
-        self.generation_duration = self.inputs["generation_duration"]
+        self.generation_duration = self.inputs["general"]["generation_duration"]
         if self.running:
             self.world = World(self.inputs["world"])
             self.population = self.new_gen()

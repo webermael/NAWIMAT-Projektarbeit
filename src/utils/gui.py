@@ -127,7 +127,10 @@ class SettingsWindow():
                                            interface_values[key][sub_key][3],
                                            self.in_dict[key][sub_key])
           else:
-            tk.Label((self.right_frame if self.frame_switch else self.left_frame), text=f"{sub_key}".capitalize(), font=("Helvetica", 14)).pack()
+            label = sub_key
+            if sub_key == "danger":
+              label = "fire"
+            tk.Label((self.right_frame if self.frame_switch else self.left_frame), text=f"{label}".capitalize(), font=("Helvetica", 14)).pack()
             self.boxes[key][sub_key] = {}
             for sub_sub_key in self.in_dict[key][sub_key].keys():
               if sub_sub_key not in ["networks", "nn_layer_sizes"]:
@@ -241,6 +244,7 @@ class SaveWindow():
         initialdir='~/',
         filetypes=filetypes)
     if self.save_file != "" and self.save_file != ():
+      self.save_file += ".json"
       self.saving = True
       self.root.destroy()
 

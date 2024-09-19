@@ -3,48 +3,49 @@ interface_values = {
     {
         "size": 
         {
-            "column_length": ["Column Length", 0, 128, 1], 
-            "row_length": ["Row Lenght", 0, 128, 1],
-            "tile_width": ["Tile Width", 0, 5, 1]
+            "column_length": ["Height", 10, 500, 10], 
+            "row_length": ["Width", 10, 500, 10],
+            "tile_width": ["Tile size (pixels)", 1, 20, 1]
         }, 
         "danger": 
         {
-            "count": ["Quantity", 0, 100, 1],
-            "min_life": ["Minimal Duration", 0, 15, 1],
-            "max_life": ["Maximal Duration", 0, 27, 1],
-            "spread_chance": ["Chance to spread", 0, 100, 1],
-            "damage": ["Damage", 0, 20, 1]
+            "count": ["Amount", 0, 2000, 100],
+            "min_life": ["Minimal burning time", 0, 50, 1],
+            "max_life": ["Maximal burning time", 0, 100, 1],
+            "spread_chance": ["Chance to spread (per tick)", 0, 1, 0.01],
+            "damage": ["Damage", 0, 100, 5]
         }, 
         "food":
         {
-            "count": ["Quantity", 0, 500, 1],
-            "min_spread": ["Minimal spread", 0, 30, 1],
-            "max_spread": ["Maximal spread", 0, 50, 1],
-            "spread_chance": ["Chance to spread", 0, 2, 1],
-            "lifetime_bonus": ["Nutrition value", 0, 50, 1]
+            "count": ["Amount", 0, 2000, 100],
+            "min_spread": ["Minimal time to spread", 0, 50, 1],
+            "max_spread": ["Maximal time to spread", 0, 100, 1],
+            "lifetime_bonus": ["Nutrition value", 0, 100, 5]
         }
     }, 
     "population":
     {
         "organisms":
         {
-            "start_life": ["TIME TO LIVE", 0, 200, 1],
-            "eyes_size": ["Field of view", 0, 3, 1],
+            "start_life": ["Time to live", 0, 400, 10],
+            "eyes_size": ["Range of vision (in tiles)", 0, 5, 1],
         }, 
         "mutations":
         {
-            "probability": ["Probability", 0, 0.05, 0.01],
-            "max_difference": ["Maximal Mutation", 0, 0.25, 0.01]
+            "probability": ["Probability", 0, 1, 0.01],
+            "max_difference": ["Maximal mutation influence", 0, 2, 0.01]
         }, 
         "interactions":
         {
-            "border_damage": ["Border Damage", 0, 100, 1],
-            "move_bonus": ["Points for moving", 0, 0.01, 0.01],
-            "survivor_bonus": ["Points for surviving", 0, 500, 1],
+            "border_damage": ["Border damage", 0, 100, 1],
+            "move_bonus": ["Points for moving", 0, 10, 0.1],
+            "survivor_bonus": ["Points for surviving", 0, 1000, 100],
         }, 
-        "population_size": ["Population Size", 0, 300, 1]
-    }, 
-    "generation_counter": ["Generations", 0, 0, 1],
-    "generation_duration": ["Generation duration", 0, 350, 1],
-    "tickspeed": ["Tickspeed", 0, 180, 1]
+        "population_size": ["Population Size", 0, 1000, 100]
+    },
+    "general": 
+    {
+    "generation_duration": ["Generation duration", 0, 1000, 100],
+    "tickspeed": ["Tickspeedcap (0: uncapped)", 0, 180, 1]
+    },
 }
