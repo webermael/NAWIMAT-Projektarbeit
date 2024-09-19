@@ -36,13 +36,16 @@ class Organism:
 
     # changes the own position
     def move(self, inputs, direction, world):
-        if not world[(self.position.y + direction[1]) % inputs["world"]["size"]["column_length"]][(self.position.x + direction[0]) % inputs["world"]["size"]["column_length"]].has_organism:
-            # uses modulo to allow movement from one border to the other
-            self.position.x = (self.position.x + direction[0]) % inputs["world"]["size"]["row_length"]
-            self.position.y = (self.position.y + direction[1]) % inputs["world"]["size"]["column_length"]
-            # gives a score bonus for moving
-            if not direction == (0, 0):
-                self.score += inputs["population"]["interactions"]["move_bonus"]
+        # blocks organisms from leaving the world
+        if 0 <= self.position.x + direction[0] < inputs["world"]["size"]["row_length"] and 0 <= self.position.y + direction[1] < inputs["world"]["size"]["column_length"]:
+            # blocks organisms from moving onto organisms
+            if not world[self.position.y + direction[1]][self.position.x + direction[0]].has_organism:
+                self.position.x += direction[0]
+                self.position.y += direction[1]
+                if not direction == (0, 0):
+                    self.score += inputs["population"]["interactions"]["move_bonus"]
+        else:
+            self.lifetime -= inputs["population"]["interactions"]["border_damage"]
         
     # updates lifetime and kills the organism if lifetime is zero
     def update_lifetime(self):

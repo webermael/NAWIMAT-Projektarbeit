@@ -13,8 +13,13 @@ class Eyes:
             # this creates a shape that is wide in the middle and small on the top and bottom 
             for tile in range(-self.size + abs(row), self.size + 1 - abs(row), 1):
                 # converts content to numbers for network input
-                if world[(y_pos + row) % inputs["column_length"]][(x_pos + tile) % inputs["row_length"]].has_organism:
-                    view.append(self.org_translation[world[(y_pos + row) % inputs["column_length"]][(x_pos + tile) % inputs["row_length"]].content])
+                if y_pos + row >= 0 and y_pos + row < inputs["column_length"] and x_pos + tile >= 0 and x_pos + tile < inputs["row_length"]:
+                    if world[y_pos + row][x_pos + tile].has_organism:
+                        # sees tiles with organisms different to those without
+                        view.append(self.org_translation[world[y_pos + row][x_pos + tile].content])
+                    else:
+                        view.append(self.translation[world[y_pos + row][x_pos + tile].content])
                 else:
+                    # every tile outside of the world is seen as danger
                     view.append(self.translation["danger"])
         return view

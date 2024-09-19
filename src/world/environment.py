@@ -47,8 +47,9 @@ class Danger(Tile):
       if random() <= inputs["danger"]["spread_chance"]:
           y = randint(self.position.y - 1, self.position.y + 1)
           x = randint(self.position.x - 1, self.position.x + 1)
-          if world[y % inputs["size"]["column_length"]][x % inputs["size"]["row_length"]].content != "danger":
-            world[y % inputs["size"]["column_length"]][x % inputs["size"]["row_length"]] = Danger(inputs, x % inputs["size"]["row_length"], y % inputs["size"]["column_length"])
+          if y >= 0 and y < inputs["size"]["column_length"] and x >= 0 and x < inputs["size"]["row_length"]:
+            if world[y][x].content != "danger":
+              world[y][x] = Danger(inputs, x, y)
       self.lifetime -= 1
     # turns into an empty tile when lifetime is zero
     else:
