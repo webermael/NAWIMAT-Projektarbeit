@@ -4,35 +4,6 @@ from tkinter import filedialog
 from utils.interface_values import interface_values
 import os.path
 
-class Slider:
-  def __init__(self, value, root, scaleLow, scaleHigh):
-    self.frame = tk.Frame(root)
-    self.frame.columnconfigure(0, weight=1)
-    self.frame.columnconfigure(1, weight=3)
-    self.frame.columnconfigure(2, weight=1)
-    self.slider = tk.ttk.Scale(
-        self.frame,
-        from_=scaleLow,
-        to=scaleHigh,
-        orient="horizontal",
-        command=self.slider_changed,
-    )
-    self.slider.grid(column=1, row=0, sticky='we')
-    
-    self.label = ttk.Label(self.frame, text=f"{value}:")
-    self.label.grid(column=0, row=0, sticky='w')
-
-    self.value_label = ttk.Label(self.frame, text=self.get_current_value())
-    self.value_label.grid(column=2, row=0, sticky='e')
-
-    self.frame.pack(expand = True)
-
-  def get_current_value(self):
-      return '{: .2f}'.format(self.slider.get())
-
-  def slider_changed(self, event):
-      self.value_label.configure(text=self.get_current_value())
-
 
 class Box:
   def __init__(self, value, root, range_from, range_to, range_step, startValue):
