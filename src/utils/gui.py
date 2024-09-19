@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from utils.interface_values import interface_values
+import os.path
 
 class Slider:
   def __init__(self, value, root, scaleLow, scaleHigh):
@@ -93,7 +94,8 @@ class LoadWindow():
     self.root.mainloop()
 
   def template(self):
-    self.loaded_file = "template.json"
+    local_path = os.path.abspath(os.path.dirname(__file__))
+    self.loaded_file = os.path.join(local_path, "template.json")
     self.root.destroy()
     
   def load_file(self):
