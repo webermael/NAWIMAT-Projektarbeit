@@ -52,7 +52,7 @@ class Organism:
         self.lifetime -= 1
         if self.lifetime <= 0:
             self.alive = False
-            self.lifetime = 0
+            self.lifetime = 0.1
     
     # updates the organisms position, lifetime and has_organism values of tiles it interacts with
     def update(self, inputs, world):
