@@ -17,10 +17,9 @@
         }, 
         "food": 
         {
-            "count": 500, 
-            "min_spread": 30, 
-            "max_spread": 50, 
-            "spread_chance": 2, 
+            "count": 250, 
+            "min_spread": 40, 
+            "max_spread": 60,  
             "lifetime_bonus": 50
         }
     }, 
@@ -46,8 +45,11 @@
             "survivor_bonus": 500
         }
     },
-    "generation_counter": 0, 
+    "general":
+    {
     "generation_duration": 350,
     "tickspeed": 180
+    },
+    "generation_counter": 0
 }
 
