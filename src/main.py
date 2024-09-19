@@ -21,7 +21,6 @@ def main():
             settings_window = SettingsWindow(load_dict)
             settings_window.run()
             if settings_window.pressed_quit:
-                same_file = False
                 running = False
                 break
             eyes_size = load_dict["population"]["organisms"]["eyes_size"]
@@ -39,7 +38,6 @@ def main():
             save_window = SaveWindow()
             save_window.run()
             if save_window.pressed_quit:
-                same_file = False
                 running = False
                 break
             elif save_window.saving:
