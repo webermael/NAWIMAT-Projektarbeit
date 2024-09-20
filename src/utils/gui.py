@@ -264,7 +264,8 @@ class SaveWindow():
         initialdir='~/',
         filetypes=filetypes)
     if self.save_file != "" and self.save_file != ():
-      self.save_file += ".json"
+      if self.save_file[-5:] != ".json":
+        self.save_file += ".json"
       self.saving = True
       self.root.destroy()
 
