@@ -10,6 +10,8 @@ class Population:
     def __init__(self, inputs, world_sizes, coords_only = False):
         self.organisms = []
         self.organism_coords = []
+        if inputs["population_size"] > int(world_sizes["row_length"] * world_sizes["column_length"] // 1.25):
+            inputs["population_size"] = int(world_sizes["row_length"] * world_sizes["column_length"] // 1.25)
         while len(self.organism_coords) < inputs["population_size"]:
             # creates random untaken coordinates until the list length equals population_size 
             coords = (randint(0, world_sizes["row_length"] - 1), randint(0, world_sizes["column_length"] - 1))
